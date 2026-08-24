@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciclo de Matrículas 2027 — Colégio Qi</title>
+<script src="dados.js"></script>
+<style>
+:root {
+  --qi-azul: #003b71;
+  --qi-azul2: #0057a8;
+  --qi-vermelho: #e2001a;
+  --qi-cinza: #f4f6f9;
+  --qi-borda: #dbe2ea;
+  --qi-texto: #1c2b3a;
+  --qi-verde: #1a9c5b;
+  --qi-amarelo: #f2a900;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--qi-cinza); color: var(--qi-texto); line-height: 1.5; }
+
+/* Header */
+header { background: linear-gradient(135deg, var(--qi-azul), var(--qi-azul2)); color: #fff; padding: 22px 28px; display: flex; align-items: center; gap: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+.logo-box { background: #fff; border-radius: 10px; padding: 8px 14px; font-weight: 800; font-size: 26px; color: var(--qi-azul); letter-spacing: 1px; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.logo-box span { color: var(--qi-vermelho); }
+header h1 { font-size: 21px; }
+header p { font-size: 13px; opacity: .9; }
+
+/* Container */
+.container { max-width: 1240px; margin: 0 auto; padding: 24px; }
+
+/* Filtros */
+.filtros { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); margin-bottom: 22px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-end; }
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: 12px; font-weight: 700; color: var(--qi-azul); text-transform: uppercase; letter-spacing: .5px; }
+select, input { padding: 11px 14px; border: 2px solid var(--qi-borda); border-radius: 9px; font-size: 14px; background: #fff; min-width: 170px; transition: .2s; }
+select:focus, input:focus { outline: none; border-color: var(--qi-azul2); }
+input[type=number] { min-width: 120px; }
+.unidade-badge { margin-left: auto; background: var(--qi-azul); color: #fff; border-radius: 10px; padding: 12px 22px; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+.tab { padding: 11px 20px; background: #fff; border: 2px solid var(--qi-borda); border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 14px; transition: .2s; white-space: nowrap; }
+.tab.ativo { background: var(--qi-azul); color: #fff; border-color: var(--qi-azul); }
+.tab:hover:not(.ativo) { border-color: var(--qi-azul2); }
+
+/* Painel */
+.painel { display: none; }
+.painel.ativo { display: block; }
+
+/* Card */
+.card { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); margin-bottom: 22px; }
+.card h2 { color: var(--qi-azul); font-size: 18px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 3px solid var(--qi-vermelho); display: inline-block; }
+
+/* Tabela */
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { background: var(--qi-azul); color: #fff; padding: 11px 10px; text-align: left; font-weight: 700; }
+td { padding: 10px; border-bottom: 1px solid var(--qi-borda); }
+tr:nth-child(even) td { background: #f8fafc; }
+tr:hover td { background: #eef4fb; }
+.money { font-weight: 700; color: var(--qi-azul); white-space: nowrap; }
+.badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.b-ef1 { background: #e3f2fd; color: #0057a8; }
+.b-ef2 { background: #e8f5e9; color: #1a9c5b; }
+.b-em { background: #fff3e0; color: #e65100; }
+
+/* Prazos */
+.prazos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.prazo-card { border: 2px solid var(--qi-borda); border-radius: 12px; overflow: hidden; }
+.prazo-head { background: linear-gradient(135deg, var(--qi-azul), var(--qi-azul2)); color: #fff; padding: 12px 16px; font-weight: 800; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+.prazo-body { padding: 14px 16px; }
+.linha { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--qi-borda); font-size: 13px; }
+.linha:last-child { border-bottom: none; }
+.linha b { color: var(--qi-azul); }
+.desc-pill { background: var(--qi-verde); color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.obs { font-size: 11px; color: #e2001a; margin-top: 6px; font-style: italic; }
+
+/* Calculadoras */
+.calc-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; }
+@media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
+.calc-inputs { display: flex; flex-direction: column; gap: 14px; }
+.calc-result { background: linear-gradient(135deg, #f8fafc, #eef4fb); border: 2px solid var(--qi-borda); border-radius: 12px; padding: 20px; }
+.res-linha { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--qi-borda); font-size: 14px; gap: 10px; }
+.res-linha:last-child { border-bottom: none; }
+.res-sug { background: var(--qi-verde); color: #fff; border-radius: 10px; padding: 14px 16px; margin: 12px 0; text-align: center; }
+.res-sug .v { font-size: 26px; font-weight: 800; }
+.res-sug .l { font-size: 12px; opacity: .95; text-transform: uppercase; letter-spacing: .5px; }
+.res-block { background: #fff; border-radius: 9px; padding: 12px 14px; margin-top: 10px; font-size: 13px; border-left: 4px solid var(--qi-azul); }
+.res-block h4 { color: var(--qi-azul); font-size: 13px; margin-bottom: 6px; }
+.chk { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--qi-texto); cursor: pointer; }
+.chk input { min-width: auto; width: 18px; height: 18px; cursor: pointer; }
+.hint { font-size: 12px; color: #607080; margin-top: 4px; }
+.serie-tags { font-size: 11px; color: #607080; margin-top: 4px; }
+
+/* Bloco de meta (novo) */
+.meta-block { border-radius: 9px; padding: 14px; margin-top: 10px; font-size: 13px; border: 2px solid; }
+.meta-block.acima { background: #e8f5e9; border-color: #1a9c5b; }
+.meta-block.abaixo { background: #fff3f3; border-color: #e2001a; }
+.meta-block.neutro { background: #f8fafc; border-color: var(--qi-borda); }
+.meta-block h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.meta-block.acima h4 { color: #1a9c5b; }
+.meta-block.abaixo h4 { color: #e2001a; }
+.meta-block.neutro h4 { color: var(--qi-azul); }
+.meta-linha { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed rgba(0,0,0,.1); font-size: 13px; }
+.meta-linha:last-child { border-bottom: none; }
+.meta-status { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 800; margin-top: 8px; padding-top: 8px; border-top: 2px solid rgba(0,0,0,.1); }
+.meta-status.verde { color: #1a9c5b; }
+.meta-status.vermelho { color: #e2001a; }
+.meta-delta { font-size: 13px; font-weight: 700; }
+.meta-delta.positivo { color: #1a9c5b; }
+.meta-delta.negativo { color: #e2001a; }
+
+/* Portas Abertas */
+.pa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.pa-card { border: 2px solid var(--qi-borda); border-radius: 12px; overflow: hidden; }
+.pa-head { padding: 12px 16px; font-weight: 800; color: #fff; font-size: 14px; }
+.pa-body { padding: 12px 16px; font-size: 13px; }
+.pa-chip { display: inline-block; background: #eef4fb; color: var(--qi-azul); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; margin: 2px; }
+.pa-fora { display: inline-block; background: #fff3e0; color: #e65100; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700; margin: 2px; }
+.pa-nota { font-size: 11px; color: #607080; margin-top: 6px; font-style: italic; }
+
+/* Footer */
+footer { text-align: center; padding: 24px; font-size: 12px; color: #8a9ab0; }
+
+/* Label de campo */
+.campo-label { font-size: 12px; font-weight: 700; color: var(--qi-azul); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+
+/* Input wrapper */
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-box">Q<span>i</span></div>
+  <div>
+    <h1>Ciclo de Matrículas 2027</h1>
+    <p>Dashboard de Prazos, Valores, Condições e Portas Abertas — Colégio Qi</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Filtros globais -->
+  <div class="filtros">
+    <div class="campo">
+      <label>🏫 Unidade</label>
+      <select id="sel-unidade" onchange="onUnidadeChange()">
+        <option value="Freguesia">Freguesia</option>
+        <option value="Metropolitano">Metropolitano</option>
+        <option value="Recreio">Recreio</option>
+        <option value="Rio 2">Rio 2</option>
+        <option value="Tijuca">Tijuca</option>
+        <option value="Valqueire">Valqueire</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label>📚 Segmento</label>
+      <select id="sel-segmento" onchange="renderTabela()">
+        <option value="">Todos</option>
+        <option value="EF1">EF1</option>
+        <option value="EF2">EF2</option>
+        <option value="EM">EM</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label>🎓 Série</label>
+      <select id="sel-serie" onchange="renderTabela()">
+        <option value="">Todas</option>
+      </select>
+    </div>
+    <div class="unidade-badge" id="badge-unidade">🏫 FREGUESIA</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab ativo" onclick="trocarTab('tabela', this)">💰 Tabela de Valores</div>
+    <div class="tab" onclick="trocarTab('prazos', this)">📅 Prazos &amp; Condições</div>
+    <div class="tab" onclick="trocarTab('calc-mens', this)">🧮 Calc. Mensalidade</div>
+    <div class="tab" onclick="trocarTab('calc-mat', this)">📦 Calc. Material</div>
+    <div class="tab" onclick="trocarTab('portas', this)">🚪 Portas Abertas</div>
+  </div>
+
+  <!-- Tab: Tabela de Valores -->
+  <div id="painel-tabela" class="painel ativo">
+    <div class="card">
+      <h2 id="tabela-titulo">Tabela de Valores 2027 — Freguesia</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Segmento</th><th>Série</th><th>Turno</th>
+            <th>Anuidade</th><th>Mensalidade</th><th>1ª Cota</th>
+            <th>Material</th><th>Bilíngue (Anuid.)</th><th>Bilíngue (Mens.)</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab: Prazos & Condições -->
+  <div id="painel-prazos" class="painel">
+    <div class="card">
+      <h2>Condições de Pagamento por Prazo — 2027</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">BO = Boleto &nbsp;|&nbsp; CC = Cartão de Crédito &nbsp;|&nbsp; Material no BO com último vencimento em ago/27.</p>
+      <div class="prazos-grid" id="prazos-grid"></div>
+    </div>
+  </div>
+
+  <!-- Tab: Calc. Mensalidade -->
+  <div id="painel-calc-mens" class="painel">
+    <div class="card">
+      <h2>Calculadora de Negociação — Mensalidade 2027</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Selecione a série, informe o % de desconto e veja a mensalidade a ofertar ao responsável — com indicador de meta.</p>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="input-group">
+            <div class="campo-label">📚 Série</div>
+            <select id="cm-serie" onchange="calcMens()">
+              <option value="">— selecione a série —</option>
+            </select>
+            <div class="serie-tags" id="cm-serie-info"></div>
+          </div>
+          <div class="input-group">
+            <div class="campo-label">% de desconto proposto (mensalidade)</div>
+            <input type="number" id="cm-desc" value="0" min="0" max="100" step="1" oninput="calcMens()">
+          </div>
+          <div class="input-group">
+            <div class="campo-label" style="background:#111;color:#fff;padding:6px 10px;border-radius:6px;">% de desconto — 1ª cota</div>
+            <input type="number" id="cm-cota-desc" value="0" min="0" max="100" step="1" oninput="calcMens()">
+          </div>
+          <label class="chk">
+            <input type="checkbox" id="cm-irmao" onchange="calcMens()">
+            Desconto de irmão (+5% — no mais velho)
+          </label>
+          <label class="chk" id="chk-biling-wrap">
+            <input type="checkbox" id="cm-biling" onchange="calcMens()">
+            Incluir Programa Bilíngue (apenas EF1)
+          </label>
+          <p class="hint">Marque a opção para somar 5% ao desconto (irmão).</p>
+        </div>
+        <div class="calc-result" id="cm-result">
+          <p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Calc. Material -->
+  <div id="painel-calc-mat" class="painel">
+    <div class="card">
+      <h2>Calculadora de Material Didático 2027</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Mesmo formato da calculadora de mensalidade, respeitando as <b>regras do Material Didático</b>: desconto à vista por prazo, parcelamento no BO (último venc. ago/27) e no CC.</p>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="input-group">
+            <div class="campo-label">📦 Bloco de séries</div>
+            <select id="mat-bloco" onchange="calcMat()">
+              <option value="">— selecione —</option>
+            </select>
+            <div class="serie-tags" id="mat-serie-tags"></div>
+          </div>
+          <div class="input-group">
+            <div class="campo-label">📅 Prazo de matrícula</div>
+            <select id="mat-prazo" onchange="calcMat()">
+              <option value="">— selecione —</option>
+            </select>
+          </div>
+          <p class="hint">O sistema mostra o valor à vista com desconto e os cenários de parcelamento no boleto e no cartão.</p>
+        </div>
+        <div class="calc-result" id="mat-result">
+          <p style="color:#8a9ab0;font-size:13px;">Selecione o bloco e o prazo para calcular.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab: Portas Abertas -->
+  <div id="painel-portas" class="painel">
+    <div class="card">
+      <h2>Portas Abertas — Ciclo 2027</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">⚠️ Preveja participação marcada com <b>Qi Multicultural</b> — não faz parte desta unidade. Verifique detalhes.</p>
+      <div class="pa-grid" id="pa-grid"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Colégio Qi &middot; Ciclo de Matrículas 2027 &middot; Dashboard interno das unidades.</footer>
+
+<script>
+// ─── Estado global ───────────────────────────────────────────
+const CORES_UNIDADE = {
+  "Freguesia":    { c: "#003b71", g: "#002557" },
+  "Metropolitano":{ c: "#0057a8", g: "#003b71" },
+  "Recreio":      { c: "#1a9c5b", g: "#0f6e3f" },
+  "Rio 2":        { c: "#9c1a1a", g: "#6e0f0f" },
+  "Tijuca":       { c: "#7b2d8b", g: "#561e60" },
+  "Valqueire":    { c: "#c47a00", g: "#8a5500" }
+};
+
+function getUnidade() { return document.getElementById('sel-unidade').value; }
+function getSegmento() { return document.getElementById('sel-segmento').value; }
+function getSerie()    { return document.getElementById('sel-serie').value; }
+
+// ─── Trocar tab ──────────────────────────────────────────────
+function trocarTab(id, el) {
+  document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('ativo'));
+  document.getElementById('painel-' + id).classList.add('ativo');
+  el.classList.add('ativo');
+}
+
+// ─── Ao trocar unidade ───────────────────────────────────────
+function onUnidadeChange() {
+  const u = getUnidade();
+  const cor = CORES_UNIDADE[u] || { c: '#003b71', g: '#002557' };
+  document.getElementById('badge-unidade').textContent = '🏫 ' + u.toUpperCase();
+  document.getElementById('badge-unidade').style.background = cor.c;
+
+  // Atualizar select de série global
+  populateSerieSelect('sel-serie', u, '');
+
+  renderTabela();
+  renderPrazos();
+  populateCalcMens();
+  populateCalcMat();
+  renderPortas();
+}
+
+// ─── Popular select de série ─────────────────────────────────
+function populateSerieSelect(selectId, unidade, segmento) {
+  const sel = document.getElementById(selectId);
+  const selected = sel.value;
+  sel.innerHTML = '<option value="">Todas</option>';
+  const series = [...new Set(
+    DADOS.filter(d => d.unidade === unidade && (!segmento || d.segmento === segmento))
+         .map(d => d.serie)
+  )];
+  series.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = s;
+    if (s === selected) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+// ─── Tab 1: Tabela de Valores ────────────────────────────────
+function renderTabela() {
+  const u = getUnidade(), seg = getSegmento(), ser = getSerie();
+  document.getElementById('tabela-titulo').textContent = `Tabela de Valores 2027 — ${u}`;
+  const dados = DADOS.filter(d =>
+    d.unidade === u &&
+    (!seg || d.segmento === seg) &&
+    (!ser || d.serie === ser)
+  );
+  const badge = {'EF1':'b-ef1','EF2':'b-ef2','EM':'b-em'};
+  const rows = dados.map(d => `
+    <tr>
+      <td><span class="badge ${badge[d.segmento]||''}">${d.segmento}</span></td>
+      <td>${d.serie}</td>
+      <td>${d.turno}</td>
+      <td class="money">${fmt(d.anuidade)}</td>
+      <td class="money">${fmt(d.mensalidade)}</td>
+      <td class="money">${fmt(d.cota)}</td>
+      <td class="money">${fmt(d.material)}</td>
+      <td class="money">${d.biling_anuidade ? fmt(d.biling_anuidade) : '—'}</td>
+      <td class="money">${d.biling_mensalidade ? fmt(d.biling_mensalidade) : '—'}</td>
+    </tr>`).join('');
+  document.getElementById('tabela-body').innerHTML = rows || '<tr><td colspan="9" style="text-align:center;color:#8a9ab0;">Nenhum dado encontrado.</td></tr>';
+}
+
+// ─── Tab 2: Prazos & Condições ───────────────────────────────
+function renderPrazos() {
+  const prazos = REGRAS.prazos;
+  const html = prazos.map(p => `
+    <div class="prazo-card">
+      <div class="prazo-head">
+        <span>${p.label}</span>
+        <span class="desc-pill">Anuidade -${(p.anuidade_desc*100).toFixed(0)}%</span>
+      </div>
+      <div class="prazo-body">
+        <div class="linha"><span>Anuidade à vista</span><b>${(p.anuidade_desc*100).toFixed(0)}% desc.</b></div>
+        <div class="linha"><span>Material — à vista</span><b>${(p.material_avista_desc*100).toFixed(0)}% desc.</b></div>
+        <div class="linha"><span>Material — BO</span><b>${p.material_bo}x (ago/27)</b></div>
+        <div class="linha"><span>Material — CC</span><b>${p.material_cc}x</b></div>
+        <div class="linha"><span>1ª Cota — BO</span><b>${p.cota_bo}x</b></div>
+        <div class="linha"><span>1ª Cota — CC</span><b>${p.cota_cc}x</b></div>
+        ${p.cota_obs ? `<p class="obs">${p.cota_obs}</p>` : ''}
+      </div>
+    </div>`).join('');
+  document.getElementById('prazos-grid').innerHTML = html;
+}
+
+// ─── Tab 3: Calculadora de Mensalidade (por SÉRIE) ───────────
+function populateCalcMens() {
+  const u = getUnidade();
+  const sel = document.getElementById('cm-serie');
+  sel.innerHTML = '<option value="">— selecione a série —</option>';
+
+  // Agrupar por segmento
+  const segs = ['EF1', 'EF2', 'EM'];
+  segs.forEach(seg => {
+    const series = DADOS.filter(d => d.unidade === u && d.segmento === seg);
+    if (!series.length) return;
+    const grp = document.createElement('optgroup');
+    grp.label = seg;
+    series.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = `${d.segmento}|${d.serie}`;
+      opt.textContent = `${d.serie} — ${fmt(d.mensalidade)}/mês`;
+      grp.appendChild(opt);
+    });
+    sel.appendChild(grp);
+  });
+
+  document.getElementById('cm-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>';
+  document.getElementById('cm-serie-info').textContent = '';
+}
+
+function calcMens() {
+  const u = getUnidade();
+  const val = document.getElementById('cm-serie').value;
+  if (!val) {
+    document.getElementById('cm-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>';
+    return;
+  }
+
+  const [seg, serie] = val.split('|');
+  const dado = DADOS.find(d => d.unidade === u && d.segmento === seg && d.serie === serie);
+  if (!dado) return;
+
+  // Bilíngue só para EF1
+  const bilingWrap = document.getElementById('chk-biling-wrap');
+  bilingWrap.style.display = seg === 'EF1' ? 'flex' : 'none';
+  if (seg !== 'EF1') document.getElementById('cm-biling').checked = false;
+
+  const descPct = parseFloat(document.getElementById('cm-desc').value) || 0;
+  const cotaDescPct = parseFloat(document.getElementById('cm-cota-desc').value) || 0;
+  const comIrmao = document.getElementById('cm-irmao').checked;
+  const comBiling = document.getElementById('cm-biling').checked && seg === 'EF1';
+
+  let totalDesc = descPct + (comIrmao ? 5 : 0);
+  if (totalDesc > 100) totalDesc = 100;
+
+  const mensBase = dado.mensalidade;
+  const mensCalc = mensBase * (1 - totalDesc / 100);
+
+  // Bilíngue
+  let bilingDesc = '';
+  if (comBiling && BILING) {
+    const bilingMens = BILING.anuidade / 12;
+    bilingDesc = `<div class="res-block"><h4>➕ Programa Bilíngue</h4>
+      <div class="res-linha"><span>Anuidade bilíngue</span><b>${fmt(BILING.anuidade)}</b></div>
+      <div class="res-linha"><span>Mensalidade equiv.</span><b>${fmt(bilingMens)}</b></div>
+    </div>`;
+  }
+
+  // 1ª Cota
+  const cotaBase = dado.cota;
+  const cotaCalc = cotaBase * (1 - cotaDescPct / 100);
+
+  // Anuidade (1ª cota paga à parte)
+  const anuidade = dado.anuidade;
+
+  // META
+  const meta = METAS.find(m => m.filial === u && m.segmento === seg && m.serie === serie);
+  let metaHtml = '';
+  if (meta) {
+    const ticketAlvo = meta.ticket_alvo;
+    const ticketMeta = meta.ticket_meta;
+    const diff = mensCalc - ticketAlvo;
+    const diffPct = ((mensCalc / ticketAlvo) - 1) * 100;
+    const isAcima = mensCalc >= ticketAlvo;
+    const cls = isAcima ? 'acima' : 'abaixo';
+    const statusIcon = isAcima ? '✅' : '⚠️';
+    const statusText = isAcima ? 'ACIMA DA META' : 'ABAIXO DA META';
+    const deltaStr = (diff >= 0 ? '+' : '') + fmtNum(diff) + ' (' + (diffPct >= 0 ? '+' : '') + diffPct.toFixed(1) + '%)';
+    const deltaCls = diff >= 0 ? 'positivo' : 'negativo';
+
+    metaHtml = `
+    <div class="meta-block ${cls}">
+      <h4>🎯 Indicador de Meta — ${serie}</h4>
+      <div class="meta-linha"><span>Ticket meta da série</span><b>${fmt(ticketMeta)}</b></div>
+      <div class="meta-linha"><span>Ticket alvo (+10%)</span><b>${fmt(ticketAlvo)}</b></div>
+      <div class="meta-linha"><span>Mensalidade proposta</span><b>${fmt(mensCalc)}</b></div>
+      <div class="meta-status ${isAcima ? 'verde' : 'vermelho'}">
+        ${statusIcon} ${statusText}
+        <span class="meta-delta ${deltaCls}">&nbsp;&nbsp;${deltaStr}</span>
+      </div>
+    </div>`;
+  }
+
+  // Info da série
+  document.getElementById('cm-serie-info').textContent = `Turno: ${dado.turno} | Segmento: ${dado.segmento}`;
+
+  document.getElementById('cm-result').innerHTML = `
+    <div class="res-linha"><span>Unidade / Série</span><b>${u} · ${serie}</b></div>
+    <div class="res-linha"><span>Mensalidade sem desconto</span><b>${fmt(mensBase)}</b></div>
+    <div class="res-linha"><span>% desconto proposto</span><b>${descPct}%${comIrmao ? ' + 5% irmão' : ''}</b></div>
+    <div class="res-linha"><span>Desconto total aplicado</span><b>${totalDesc}%</b></div>
+
+    <div class="res-sug">
+      <div class="l">Mensalidade sugerida (ofertar ao responsável)</div>
+      <div class="v">${fmt(mensCalc)}</div>
+    </div>
+
+    ${metaHtml}
+
+    <div class="res-block">
+      <h4>📅 1ª Cota / 1ª Mensalidade — Negociação</h4>
+      <div class="res-linha"><span>Valor da 1ª cota (tabela ${u})</span><b>${fmt(cotaBase)}</b></div>
+      <div class="res-linha"><span>% desconto aplicado na cota</span><b>${cotaDescPct}%</b></div>
+      <div class="res-linha"><span>1ª cota com desconto</span><b>${fmt(cotaCalc)}</b></div>
+    </div>
+
+    <div class="res-block">
+      <h4>📋 Anuidade (1ª cota paga à parte)</h4>
+      <div class="res-linha"><span>Anuidade 2027</span><b>${fmt(anuidade)}</b></div>
+    </div>
+
+    ${bilingDesc}
+  `;
+}
+
+// ─── Tab 4: Calculadora de Material ─────────────────────────
+function populateCalcMat() {
+  const u = getUnidade();
+  const selBloco = document.getElementById('mat-bloco');
+  selBloco.innerHTML = '<option value="">— selecione —</option>';
+
+  const blocos = MBLOCOS.filter(b => b.unidade === u);
+  blocos.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.bloco;
+    opt.textContent = `${b.bloco} — ${fmt(b.material)}`;
+    selBloco.appendChild(opt);
+  });
+
+  const selPrazo = document.getElementById('mat-prazo');
+  selPrazo.innerHTML = '<option value="">— selecione —</option>';
+  REGRAS.prazos.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.label;
+    selPrazo.appendChild(opt);
+  });
+
+  document.getElementById('mat-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione o bloco e o prazo para calcular.</p>';
+}
+
+function calcMat() {
+  const u = getUnidade();
+  const blocoNome = document.getElementById('mat-bloco').value;
+  const prazoId = document.getElementById('mat-prazo').value;
+  if (!blocoNome || !prazoId) {
+    document.getElementById('mat-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione o bloco e o prazo para calcular.</p>';
+    return;
+  }
+
+  const bloco = MBLOCOS.find(b => b.unidade === u && b.bloco === blocoNome);
+  const prazo = REGRAS.prazos.find(p => p.id === prazoId);
+  if (!bloco || !prazo) return;
+
+  const matBase = bloco.material;
+  const matAvista = matBase * (1 - prazo.material_avista_desc);
+  const parcelaBO = matBase / prazo.material_bo;
+  const parcelaCC = matBase / prazo.material_cc;
+  const economia = matBase - matAvista;
+
+  const tags = bloco.series ? bloco.series.map(s => `<span class="pa-chip">${s}</span>`).join('') : '';
+  document.getElementById('mat-serie-tags').innerHTML = tags;
+
+  document.getElementById('mat-result').innerHTML = `
+    <div class="res-linha"><span>Unidade / Bloco</span><b>${u} · ${bloco.bloco}</b></div>
+    <div class="res-linha"><span>Prazo</span><b>${prazo.label}</b></div>
+    <div class="res-linha"><span>Material (valor de tabela)</span><b>${fmt(matBase)}</b></div>
+
+    <div class="res-sug" style="background:#0057a8;">
+      <div class="l">À vista — ${(prazo.material_avista_desc*100).toFixed(0)}% de desconto</div>
+      <div class="v">${fmt(matAvista)}</div>
+    </div>
+
+    <div class="res-block">
+      <h4>📄 Boleto (BO) — sem desconto</h4>
+      <div class="res-linha"><span>${prazo.material_bo}x de</span><b>${fmt(parcelaBO)}</b></div>
+      <div class="res-linha"><span>Total</span><b>${fmt(matBase)}</b></div>
+      <p class="obs">Último vencimento obrigatoriamente em ago/27.</p>
+    </div>
+
+    <div class="res-block">
+      <h4>💳 Cartão de Crédito (CC) — sem desconto</h4>
+      <div class="res-linha"><span>${prazo.material_cc}x de</span><b>${fmt(parcelaCC)}</b></div>
+      <div class="res-linha"><span>Total</span><b>${fmt(matBase)}</b></div>
+    </div>
+
+    <div class="res-block" style="border-color:var(--qi-verde);">
+      <h4>💚 Economia à vista</h4>
+      <div class="res-linha"><span>Você economiza</span><b style="color:var(--qi-verde);">${fmt(economia)}</b></div>
+    </div>
+  `;
+}
+
+// ─── Tab 5: Portas Abertas ───────────────────────────────────
+function renderPortas() {
+  const u = getUnidade();
+  const cor = CORES_UNIDADE[u] || { c: '#003b71', g: '#002557' };
+
+  const html = PORTAS.map(ev => {
+    const participa = ev.participantes.includes(u);
+    const fora = ev.fora || [];
+    const foraU = fora.includes(u);
+    if (!participa && !foraU) return '';
+
+    const chipsPart = ev.participantes.map(p =>
+      `<span class="${p === u ? 'pa-chip' : 'pa-chip'}" style="${p === u ? 'background:'+cor.c+';color:#fff;' : ''}">${p}</span>`
+    ).join('');
+    const chipsFora = fora.map(p =>
+      `<span class="pa-fora">${p}</span>`
+    ).join('');
+
+    return `
+      <div class="pa-card">
+        <div class="pa-head" style="background:linear-gradient(135deg,${cor.c},${cor.g});">${ev.label}</div>
+        <div class="pa-body">
+          <div style="margin-bottom:8px;">${chipsPart}</div>
+          ${chipsFora ? `<div style="margin-bottom:6px;"><span style="font-size:11px;color:#607080;">Qi Multicultural:</span> ${chipsFora}</div>` : ''}
+          ${ev.nota ? `<p class="pa-nota">${ev.nota}</p>` : ''}
+        </div>
+      </div>`;
+  }).filter(Boolean).join('');
+
+  document.getElementById('pa-grid').innerHTML = html || '<p style="color:#8a9ab0;">Nenhum evento encontrado para esta unidade.</p>';
+}
+
+// ─── Formatação ───────────────────────────────────────────────
+function fmt(v) {
+  if (v == null) return '—';
+  return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function fmtNum(v) {
+  return 'R$ ' + Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ─── Init ────────────────────────────────────────────────────
+window.onload = function() {
+  onUnidadeChange();
+};
+</script>
+</body>
+</html>
