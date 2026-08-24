@@ -1818,78 +1818,78 @@ const METAS = [
     "filial": "Freguesia",
     "segmento": "EF1",
     "serie": "2º Ano",
-    "ticket_meta": 1297.25,
-    "ticket_alvo": 1426.98
+    "ticket_meta": 1341.58,
+    "ticket_alvo": 1475.74
   },
   {
     "filial": "Freguesia",
     "segmento": "EF1",
     "serie": "3º Ano",
-    "ticket_meta": 1525.53,
-    "ticket_alvo": 1678.08
+    "ticket_meta": 1321.5,
+    "ticket_alvo": 1453.65
   },
   {
     "filial": "Freguesia",
     "segmento": "EF1",
     "serie": "4º Ano",
-    "ticket_meta": 1687.39,
-    "ticket_alvo": 1856.13
+    "ticket_meta": 1264.09,
+    "ticket_alvo": 1390.5
   },
   {
     "filial": "Freguesia",
     "segmento": "EF1",
     "serie": "5º Ano",
-    "ticket_meta": 1474.24,
-    "ticket_alvo": 1621.66
+    "ticket_meta": 1450.71,
+    "ticket_alvo": 1595.78
   },
   {
     "filial": "Freguesia",
     "segmento": "EF2",
     "serie": "6º Ano",
-    "ticket_meta": 1644.63,
-    "ticket_alvo": 1809.1
+    "ticket_meta": 1527.19,
+    "ticket_alvo": 1679.91
   },
   {
     "filial": "Freguesia",
     "segmento": "EF2",
     "serie": "7º Ano",
-    "ticket_meta": 1607.66,
-    "ticket_alvo": 1768.42
+    "ticket_meta": 1306.24,
+    "ticket_alvo": 1436.86
   },
   {
     "filial": "Freguesia",
     "segmento": "EF2",
     "serie": "8º Ano",
-    "ticket_meta": 1542.51,
-    "ticket_alvo": 1696.76
+    "ticket_meta": 1306.64,
+    "ticket_alvo": 1437.3
   },
   {
     "filial": "Freguesia",
     "segmento": "EF2",
     "serie": "9º Ano",
-    "ticket_meta": 1619.16,
-    "ticket_alvo": 1781.07
+    "ticket_meta": 1519.75,
+    "ticket_alvo": 1671.73
   },
   {
     "filial": "Freguesia",
     "segmento": "EM",
     "serie": "1ª Série",
-    "ticket_meta": 1582.63,
-    "ticket_alvo": 1740.89
+    "ticket_meta": 1117.87,
+    "ticket_alvo": 1229.66
   },
   {
     "filial": "Freguesia",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1756.38,
-    "ticket_alvo": 1932.02
+    "ticket_meta": 1213.41,
+    "ticket_alvo": 1334.75
   },
   {
     "filial": "Freguesia",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 1812.14,
-    "ticket_alvo": 1993.35
+    "ticket_meta": 1851.11,
+    "ticket_alvo": 2036.22
   },
   {
     "filial": "Metropolitano",
@@ -1902,78 +1902,78 @@ const METAS = [
     "filial": "Metropolitano",
     "segmento": "EF1",
     "serie": "2º Ano",
-    "ticket_meta": 1062.47,
-    "ticket_alvo": 1168.71
+    "ticket_meta": 1194.5,
+    "ticket_alvo": 1313.95
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF1",
     "serie": "3º Ano",
-    "ticket_meta": 1295.08,
-    "ticket_alvo": 1424.59
+    "ticket_meta": 967.42,
+    "ticket_alvo": 1064.16
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF1",
     "serie": "4º Ano",
-    "ticket_meta": 1327.39,
-    "ticket_alvo": 1460.13
+    "ticket_meta": 1106.05,
+    "ticket_alvo": 1216.65
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF1",
     "serie": "5º Ano",
-    "ticket_meta": 1152.4,
-    "ticket_alvo": 1267.64
+    "ticket_meta": 952.25,
+    "ticket_alvo": 1047.48
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF2",
     "serie": "6º Ano",
-    "ticket_meta": 1316.03,
-    "ticket_alvo": 1447.64
+    "ticket_meta": 1209.14,
+    "ticket_alvo": 1330.05
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF2",
     "serie": "7º Ano",
-    "ticket_meta": 1422.47,
-    "ticket_alvo": 1564.71
+    "ticket_meta": 1318.58,
+    "ticket_alvo": 1450.44
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF2",
     "serie": "8º Ano",
-    "ticket_meta": 1549.11,
-    "ticket_alvo": 1704.02
+    "ticket_meta": 1278.84,
+    "ticket_alvo": 1406.72
   },
   {
     "filial": "Metropolitano",
     "segmento": "EF2",
     "serie": "9º Ano",
-    "ticket_meta": 1574.17,
-    "ticket_alvo": 1731.59
+    "ticket_meta": 1177.17,
+    "ticket_alvo": 1294.89
   },
   {
     "filial": "Metropolitano",
     "segmento": "EM",
     "serie": "1ª Série",
-    "ticket_meta": 1411.97,
-    "ticket_alvo": 1553.16
+    "ticket_meta": 1131.92,
+    "ticket_alvo": 1245.11
   },
   {
     "filial": "Metropolitano",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1353.9,
-    "ticket_alvo": 1489.29
+    "ticket_meta": 1387.37,
+    "ticket_alvo": 1526.11
   },
   {
     "filial": "Metropolitano",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 1489.44,
-    "ticket_alvo": 1638.39
+    "ticket_meta": 1087.24,
+    "ticket_alvo": 1195.96
   },
   {
     "filial": "Recreio",
@@ -1986,78 +1986,78 @@ const METAS = [
     "filial": "Recreio",
     "segmento": "EF1",
     "serie": "2º Ano",
-    "ticket_meta": 1254.25,
-    "ticket_alvo": 1379.67
+    "ticket_meta": 1163.75,
+    "ticket_alvo": 1280.12
   },
   {
     "filial": "Recreio",
     "segmento": "EF1",
     "serie": "3º Ano",
-    "ticket_meta": 1654.89,
-    "ticket_alvo": 1820.38
+    "ticket_meta": 1564,
+    "ticket_alvo": 1720.4
   },
   {
     "filial": "Recreio",
     "segmento": "EF1",
     "serie": "4º Ano",
-    "ticket_meta": 1865.59,
-    "ticket_alvo": 2052.15
+    "ticket_meta": 1723.77,
+    "ticket_alvo": 1896.15
   },
   {
     "filial": "Recreio",
     "segmento": "EF1",
     "serie": "5º Ano",
-    "ticket_meta": 1627.86,
-    "ticket_alvo": 1790.65
+    "ticket_meta": 1294.92,
+    "ticket_alvo": 1424.41
   },
   {
     "filial": "Recreio",
     "segmento": "EF2",
     "serie": "6º Ano",
-    "ticket_meta": 1826.36,
-    "ticket_alvo": 2009.0
+    "ticket_meta": 1861.39,
+    "ticket_alvo": 2047.53
   },
   {
     "filial": "Recreio",
     "segmento": "EF2",
     "serie": "7º Ano",
-    "ticket_meta": 1614.69,
-    "ticket_alvo": 1776.16
+    "ticket_meta": 1217.99,
+    "ticket_alvo": 1339.79
   },
   {
     "filial": "Recreio",
     "segmento": "EF2",
     "serie": "8º Ano",
-    "ticket_meta": 1740.47,
-    "ticket_alvo": 1914.51
+    "ticket_meta": 1489.58,
+    "ticket_alvo": 1638.54
   },
   {
     "filial": "Recreio",
     "segmento": "EF2",
     "serie": "9º Ano",
-    "ticket_meta": 1705.06,
-    "ticket_alvo": 1875.57
+    "ticket_meta": 1584.58,
+    "ticket_alvo": 1743.04
   },
   {
     "filial": "Recreio",
     "segmento": "EM",
     "serie": "1ª Série",
-    "ticket_meta": 1779.58,
-    "ticket_alvo": 1957.54
+    "ticket_meta": 1459.08,
+    "ticket_alvo": 1604.98
   },
   {
     "filial": "Recreio",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1815.54,
-    "ticket_alvo": 1997.1
+    "ticket_meta": 1909.23,
+    "ticket_alvo": 2100.15
   },
   {
     "filial": "Recreio",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 2064.53,
-    "ticket_alvo": 2270.98
+    "ticket_meta": 2105.86,
+    "ticket_alvo": 2316.45
   },
   {
     "filial": "Rio 2",
@@ -2070,78 +2070,78 @@ const METAS = [
     "filial": "Rio 2",
     "segmento": "EF1",
     "serie": "2º Ano",
-    "ticket_meta": 2284.54,
-    "ticket_alvo": 2513.0
+    "ticket_meta": 2092.5,
+    "ticket_alvo": 2301.75
   },
   {
     "filial": "Rio 2",
     "segmento": "EF1",
     "serie": "3º Ano",
-    "ticket_meta": 2366.89,
-    "ticket_alvo": 2603.58
+    "ticket_meta": 2038.89,
+    "ticket_alvo": 2242.78
   },
   {
     "filial": "Rio 2",
     "segmento": "EF1",
     "serie": "4º Ano",
-    "ticket_meta": 2289.83,
-    "ticket_alvo": 2518.81
+    "ticket_meta": 2043.75,
+    "ticket_alvo": 2248.12
   },
   {
     "filial": "Rio 2",
     "segmento": "EF1",
     "serie": "5º Ano",
-    "ticket_meta": 2142.07,
-    "ticket_alvo": 2356.28
+    "ticket_meta": 1916.67,
+    "ticket_alvo": 2108.33
   },
   {
     "filial": "Rio 2",
     "segmento": "EF2",
     "serie": "6º Ano",
-    "ticket_meta": 2234.17,
-    "ticket_alvo": 2457.58
+    "ticket_meta": 1847.49,
+    "ticket_alvo": 2032.24
   },
   {
     "filial": "Rio 2",
     "segmento": "EF2",
     "serie": "7º Ano",
-    "ticket_meta": 2190.49,
-    "ticket_alvo": 2409.54
+    "ticket_meta": 2072.92,
+    "ticket_alvo": 2280.21
   },
   {
     "filial": "Rio 2",
     "segmento": "EF2",
     "serie": "8º Ano",
-    "ticket_meta": 2113.38,
-    "ticket_alvo": 2324.72
+    "ticket_meta": 1744.08,
+    "ticket_alvo": 1918.49
   },
   {
     "filial": "Rio 2",
     "segmento": "EF2",
     "serie": "9º Ano",
-    "ticket_meta": 1982.89,
-    "ticket_alvo": 2181.18
+    "ticket_meta": 1665.92,
+    "ticket_alvo": 1832.51
   },
   {
     "filial": "Rio 2",
     "segmento": "EM",
     "serie": "1ª Série",
-    "ticket_meta": 2020.92,
-    "ticket_alvo": 2223.02
+    "ticket_meta": 1840.33,
+    "ticket_alvo": 2024.37
   },
   {
     "filial": "Rio 2",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1948.68,
-    "ticket_alvo": 2143.54
+    "ticket_meta": 1956.14,
+    "ticket_alvo": 2151.75
   },
   {
     "filial": "Rio 2",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 1821.63,
-    "ticket_alvo": 2003.79
+    "ticket_meta": 1686.42,
+    "ticket_alvo": 1855.06
   },
   {
     "filial": "Tijuca",
@@ -2154,161 +2154,77 @@ const METAS = [
     "filial": "Tijuca",
     "segmento": "EF1",
     "serie": "2º Ano",
-    "ticket_meta": 1413.13,
-    "ticket_alvo": 1554.45
+    "ticket_meta": 954.84,
+    "ticket_alvo": 1050.32
   },
   {
     "filial": "Tijuca",
     "segmento": "EF1",
     "serie": "3º Ano",
-    "ticket_meta": 1629.55,
-    "ticket_alvo": 1792.51
+    "ticket_meta": 1400,
+    "ticket_alvo": 1540.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EF1",
     "serie": "4º Ano",
-    "ticket_meta": 1576.99,
-    "ticket_alvo": 1734.69
+    "ticket_meta": 1295.57,
+    "ticket_alvo": 1425.12
   },
   {
     "filial": "Tijuca",
     "segmento": "EF1",
     "serie": "5º Ano",
-    "ticket_meta": 1509.41,
-    "ticket_alvo": 1660.35
+    "ticket_meta": 1236.37,
+    "ticket_alvo": 1360.01
   },
   {
     "filial": "Tijuca",
     "segmento": "EF2",
     "serie": "6º Ano",
-    "ticket_meta": 1458.68,
-    "ticket_alvo": 1604.55
+    "ticket_meta": 1300,
+    "ticket_alvo": 1430.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EF2",
     "serie": "7º Ano",
-    "ticket_meta": 1625.55,
-    "ticket_alvo": 1788.1
+    "ticket_meta": 1351.92,
+    "ticket_alvo": 1487.11
   },
   {
     "filial": "Tijuca",
     "segmento": "EF2",
     "serie": "8º Ano",
-    "ticket_meta": 1750.25,
-    "ticket_alvo": 1925.28
+    "ticket_meta": 1480,
+    "ticket_alvo": 1628.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EF2",
     "serie": "9º Ano",
-    "ticket_meta": 1808.19,
-    "ticket_alvo": 1989.01
+    "ticket_meta": 1280,
+    "ticket_alvo": 1408.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EM",
     "serie": "1ª Série",
-    "ticket_meta": 1831.33,
-    "ticket_alvo": 2014.46
+    "ticket_meta": 1280,
+    "ticket_alvo": 1408.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1564.16,
-    "ticket_alvo": 1720.57
+    "ticket_meta": 1680,
+    "ticket_alvo": 1848.0
   },
   {
     "filial": "Tijuca",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 1731.56,
-    "ticket_alvo": 1904.72
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF1",
-    "serie": "1º Ano",
-    "ticket_meta": 1250,
-    "ticket_alvo": 1375.0
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF1",
-    "serie": "2º Ano",
-    "ticket_meta": 1199.81,
-    "ticket_alvo": 1319.79
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF1",
-    "serie": "3º Ano",
-    "ticket_meta": 1469.24,
-    "ticket_alvo": 1616.17
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF1",
-    "serie": "4º Ano",
-    "ticket_meta": 1404.65,
-    "ticket_alvo": 1545.12
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF1",
-    "serie": "5º Ano",
-    "ticket_meta": 1362.76,
-    "ticket_alvo": 1499.04
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF2",
-    "serie": "6º Ano",
-    "ticket_meta": 1319.98,
-    "ticket_alvo": 1451.98
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF2",
-    "serie": "7º Ano",
-    "ticket_meta": 1539.34,
-    "ticket_alvo": 1693.27
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF2",
-    "serie": "8º Ano",
-    "ticket_meta": 1426.08,
-    "ticket_alvo": 1568.69
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EF2",
-    "serie": "9º Ano",
-    "ticket_meta": 1448.18,
-    "ticket_alvo": 1593.0
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EM",
-    "serie": "1ª Série",
-    "ticket_meta": 1451.59,
-    "ticket_alvo": 1596.74
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EM",
-    "serie": "2ª Série",
-    "ticket_meta": 1379.36,
-    "ticket_alvo": 1517.29
-  },
-  {
-    "filial": "Valqueire",
-    "segmento": "EM",
-    "serie": "3ª Série",
-    "ticket_meta": 1439.58,
-    "ticket_alvo": 1583.54
+    "ticket_meta": 1398.83,
+    "ticket_alvo": 1538.72
   }
 ];

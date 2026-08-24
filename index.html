@@ -110,6 +110,18 @@ tr:hover td { background: #eef4fb; }
 .meta-delta.positivo { color: #1a9c5b; }
 .meta-delta.negativo { color: #e2001a; }
 
+/* Bloco sugestão mensalidade */
+.sug-block { background: #f0f6ff; border-radius: 9px; padding: 14px; margin-top: 10px; font-size: 13px; border: 2px solid var(--qi-azul2); }
+.sug-block h4 { color: var(--qi-azul); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.sug-destaque { font-size: 20px; font-weight: 800; color: var(--qi-azul); }
+.sug-desc { font-size: 15px; font-weight: 700; color: var(--qi-azul2); }
+
+/* Input duplo (% ou R$) */
+.input-dual { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.input-dual input { flex: 1; min-width: 80px; }
+.input-dual .ou { color: #8a9ab0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; padding: 0 2px; }
+.input-dual .pfx { font-size: 13px; font-weight: 700; color: var(--qi-azul2); white-space: nowrap; }
+
 /* Portas Abertas */
 .pa-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 .pa-card { border: 2px solid var(--qi-borda); border-radius: 12px; overflow: hidden; }
@@ -216,18 +228,30 @@ footer { text-align: center; padding: 24px; font-size: 12px; color: #8a9ab0; }
         <div class="calc-inputs">
           <div class="input-group">
             <div class="campo-label">📚 Série</div>
-            <select id="cm-serie" onchange="calcMens()">
+            <select id="cm-serie" onchange="onSerieChange()">
               <option value="">— selecione a série —</option>
             </select>
             <div class="serie-tags" id="cm-serie-info"></div>
           </div>
           <div class="input-group">
-            <div class="campo-label">% de desconto proposto (mensalidade)</div>
-            <input type="number" id="cm-desc" value="0" min="0" max="100" step="1" oninput="calcMens()">
+            <div class="campo-label">Desconto proposto — Mensalidade</div>
+            <div class="input-dual">
+              <span class="pfx">%</span>
+              <input type="number" id="cm-desc" value="0" min="0" max="100" step="0.01" placeholder="0,00" oninput="onDescPctChange()">
+              <span class="ou">ou</span>
+              <span class="pfx">R$</span>
+              <input type="number" id="cm-desc-val" min="0" step="0.01" placeholder="valor final" oninput="onDescValChange()">
+            </div>
           </div>
           <div class="input-group">
-            <div class="campo-label" style="background:#111;color:#fff;padding:6px 10px;border-radius:6px;">% de desconto — 1ª cota</div>
-            <input type="number" id="cm-cota-desc" value="0" min="0" max="100" step="1" oninput="calcMens()">
+            <div class="campo-label" style="background:#111;color:#fff;padding:6px 10px;border-radius:6px;">Desconto — 1ª Cota</div>
+            <div class="input-dual">
+              <span class="pfx">%</span>
+              <input type="number" id="cm-cota-desc" value="0" min="0" max="100" step="0.01" placeholder="0,00" oninput="onCotaDescPctChange()">
+              <span class="ou">ou</span>
+              <span class="pfx">R$</span>
+              <input type="number" id="cm-cota-desc-val" min="0" step="0.01" placeholder="valor final" oninput="onCotaDescValChange()">
+            </div>
           </div>
           <label class="chk">
             <input type="checkbox" id="cm-irmao" onchange="calcMens()">
@@ -417,6 +441,70 @@ function populateCalcMens() {
 
   document.getElementById('cm-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>';
   document.getElementById('cm-serie-info').textContent = '';
+  // Limpar campos R$ ao trocar unidade
+  document.getElementById('cm-desc').value = '0';
+  document.getElementById('cm-desc-val').value = '';
+  document.getElementById('cm-cota-desc').value = '0';
+  document.getElementById('cm-cota-desc-val').value = '';
+}
+
+// ─── Helpers: sincronização % ↔ R$ ─────────────────────────
+function getCurrentDado() {
+  const u = getUnidade();
+  const val = document.getElementById('cm-serie').value;
+  if (!val) return null;
+  const [seg, serie] = val.split('|');
+  return DADOS.find(d => d.unidade === u && d.segmento === seg && d.serie === serie);
+}
+
+function onSerieChange() {
+  // Ao mudar série: recomputa R$ a partir dos % atuais (ou zera se % = 0)
+  const dado = getCurrentDado();
+  if (dado) {
+    const pct = parseFloat(document.getElementById('cm-desc').value) || 0;
+    document.getElementById('cm-desc-val').value = pct > 0 ? (dado.mensalidade * (1 - pct / 100)).toFixed(2) : '';
+    const cotaPct = parseFloat(document.getElementById('cm-cota-desc').value) || 0;
+    document.getElementById('cm-cota-desc-val').value = cotaPct > 0 ? (dado.cota * (1 - cotaPct / 100)).toFixed(2) : '';
+  }
+  calcMens();
+}
+
+function onDescPctChange() {
+  const dado = getCurrentDado();
+  if (dado) {
+    const pct = Math.min(100, Math.max(0, parseFloat(document.getElementById('cm-desc').value) || 0));
+    document.getElementById('cm-desc-val').value = (dado.mensalidade * (1 - pct / 100)).toFixed(2);
+  }
+  calcMens();
+}
+
+function onDescValChange() {
+  const dado = getCurrentDado();
+  if (dado) {
+    const val = parseFloat(document.getElementById('cm-desc-val').value) || 0;
+    const pct = Math.min(100, Math.max(0, (1 - val / dado.mensalidade) * 100));
+    document.getElementById('cm-desc').value = pct.toFixed(2);
+  }
+  calcMens();
+}
+
+function onCotaDescPctChange() {
+  const dado = getCurrentDado();
+  if (dado) {
+    const pct = Math.min(100, Math.max(0, parseFloat(document.getElementById('cm-cota-desc').value) || 0));
+    document.getElementById('cm-cota-desc-val').value = (dado.cota * (1 - pct / 100)).toFixed(2);
+  }
+  calcMens();
+}
+
+function onCotaDescValChange() {
+  const dado = getCurrentDado();
+  if (dado) {
+    const val = parseFloat(document.getElementById('cm-cota-desc-val').value) || 0;
+    const pct = Math.min(100, Math.max(0, (1 - val / dado.cota) * 100));
+    document.getElementById('cm-cota-desc').value = pct.toFixed(2);
+  }
+  calcMens();
 }
 
 function calcMens() {
@@ -464,19 +552,22 @@ function calcMens() {
   // Anuidade (1ª cota paga à parte)
   const anuidade = dado.anuidade;
 
+  // Ticket proposto = (12 mensalidades + 1ª cota) / 12  — mesma base das metas
+  const ticketProposto = (mensCalc * 12 + cotaCalc) / 12;
+
   // META
   const meta = METAS.find(m => m.filial === u && m.segmento === seg && m.serie === serie);
   let metaHtml = '';
   if (meta) {
     const ticketAlvo = meta.ticket_alvo;
     const ticketMeta = meta.ticket_meta;
-    const diff = mensCalc - ticketAlvo;
-    const diffPct = ((mensCalc / ticketAlvo) - 1) * 100;
-    const isAcima = mensCalc >= ticketAlvo;
+    const diff = ticketProposto - ticketAlvo;
+    const diffPct = ((ticketProposto / ticketAlvo) - 1) * 100;
+    const isAcima = ticketProposto >= ticketAlvo;
     const cls = isAcima ? 'acima' : 'abaixo';
     const statusIcon = isAcima ? '✅' : '⚠️';
     const statusText = isAcima ? 'ACIMA DA META' : 'ABAIXO DA META';
-    const deltaStr = (diff >= 0 ? '+' : '') + fmtNum(diff) + ' (' + (diffPct >= 0 ? '+' : '') + diffPct.toFixed(1) + '%)';
+    const deltaStr = (diff >= 0 ? '+' : '-') + fmtNum(diff) + ' (' + (diffPct >= 0 ? '+' : '') + diffPct.toFixed(1) + '%)';
     const deltaCls = diff >= 0 ? 'positivo' : 'negativo';
 
     metaHtml = `
@@ -484,11 +575,42 @@ function calcMens() {
       <h4>🎯 Indicador de Meta — ${serie}</h4>
       <div class="meta-linha"><span>Ticket meta da série</span><b>${fmt(ticketMeta)}</b></div>
       <div class="meta-linha"><span>Ticket alvo (+10%)</span><b>${fmt(ticketAlvo)}</b></div>
-      <div class="meta-linha"><span>Mensalidade proposta</span><b>${fmt(mensCalc)}</b></div>
+      <div class="meta-linha"><span>Ticket proposto (12 mens. + 1ª cota) / 12</span><b>${fmt(ticketProposto)}</b></div>
       <div class="meta-status ${isAcima ? 'verde' : 'vermelho'}">
         ${statusIcon} ${statusText}
         <span class="meta-delta ${deltaCls}">&nbsp;&nbsp;${deltaStr}</span>
       </div>
+    </div>`;
+
+    // Sugestão: dado o desconto da 1ª cota, qual mensalidade mínima atinge o alvo?
+    // ticket_alvo = (12 × mens_nec + cota_calc) / 12  =>  mens_nec = (12 × ticket_alvo − cota_calc) / 12
+    const mensNecessaria = (12 * ticketAlvo - cotaCalc) / 12;
+    const descMaxMens = (1 - mensNecessaria / mensBase) * 100;
+    const propstaOk = mensCalc >= mensNecessaria - 0.005; // proposta >= mínima necessária => alvo atingido
+
+    let sugestaoStatusHtml = '';
+    if (mensNecessaria <= 0) {
+      sugestaoStatusHtml = `<div class="meta-status vermelho" style="margin-top:8px">⚠️ Impossível atingir o alvo com ${cotaDescPct}% de desconto na 1ª cota — a cota descontada já está abaixo do ticket alvo.</div>`;
+    } else if (descMaxMens < 0) {
+      sugestaoStatusHtml = `<div class="meta-status verde" style="margin-top:8px">✅ Mesmo sem desconto na mensalidade, o ticket alvo é atingido com ${cotaDescPct}% de desconto na 1ª cota.</div>`;
+    } else {
+      const propOkCls = propstaOk ? 'verde' : 'vermelho';
+      const propOkIcon = propstaOk ? '✅' : '⚠️';
+      const propOkTxt = propstaOk
+        ? `Mensalidade proposta (${fmt(mensCalc)}) atinge o ticket alvo com essa 1ª cota`
+        : `Mensalidade proposta (${fmt(mensCalc)}) está abaixo da mínima — ticket alvo não será atingido`;
+      sugestaoStatusHtml = `<div class="meta-status ${propOkCls}" style="margin-top:8px">${propOkIcon} ${propOkTxt}</div>`;
+    }
+
+    metaHtml += `
+    <div class="sug-block">
+      <h4>💡 Sugestão de Mensalidade — dado ${cotaDescPct}% de desconto na 1ª cota</h4>
+      <div class="meta-linha"><span>1ª cota com ${cotaDescPct}% de desconto</span><b>${fmt(cotaCalc)}</b></div>
+      ${mensNecessaria > 0 ? `
+      <div class="meta-linha"><span>Mensalidade mínima para atingir o ticket alvo</span><b class="sug-destaque">${fmt(mensNecessaria)}</b></div>
+      <div class="meta-linha"><span>Desconto máximo na mensalidade</span><b class="sug-desc">${descMaxMens > 0 ? descMaxMens.toFixed(1) + '%' : '0% (sem desconto necessário)'}</b></div>
+      ` : ''}
+      ${sugestaoStatusHtml}
     </div>`;
   }
 
