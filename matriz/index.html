@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciclo de Matrículas 2027 — Matriz Educação</title>
+<script src="dados.js"></script>
+<style>
+:root {
+  --c1: #b71c1c; --c2: #c62828; --cv: #f9a825;
+  --cinza: #f4f6f9; --borda: #dbe2ea; --texto: #1c2b3a; --verde: #1a7a3c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--cinza); color: var(--texto); line-height: 1.5; }
+header { background: linear-gradient(135deg, var(--c1), var(--c2)); color: #fff; padding: 22px 28px; display: flex; align-items: center; gap: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+.logo-box { background: #fff; border-radius: 10px; padding: 8px 14px; font-weight: 900; font-size: 18px; color: var(--c1); box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+.logo-box span { color: var(--cv); }
+header h1 { font-size: 21px; }
+header p { font-size: 13px; opacity: .9; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.filtros { background: #fff; border-radius: 14px; padding: 18px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); margin-bottom: 22px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+.campo { display: flex; flex-direction: column; gap: 5px; }
+.campo label { font-size: 12px; font-weight: 700; color: var(--c1); text-transform: uppercase; letter-spacing: .5px; }
+select { padding: 10px 14px; border: 2px solid var(--borda); border-radius: 9px; font-size: 14px; background: #fff; min-width: 160px; }
+select:focus { outline: none; border-color: var(--c2); }
+.badge { background: var(--c1); color: #fff; border-radius: 10px; padding: 10px 18px; font-weight: 800; font-size: 14px; margin-left: auto; }
+.tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+.tab { padding: 10px 20px; background: #fff; border: 2px solid var(--borda); border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 14px; transition: .2s; }
+.tab.ativo { background: var(--c1); color: #fff; border-color: var(--c1); }
+.tab:hover:not(.ativo) { border-color: var(--c2); }
+.painel { display: none; }
+.painel.ativo { display: block; }
+.card { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); margin-bottom: 22px; }
+.card h2 { color: var(--c1); font-size: 18px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 3px solid var(--cv); display: inline-block; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: var(--c1); color: #fff; padding: 10px; text-align: left; font-weight: 700; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--borda); }
+tr:nth-child(even) td { background: #fff5f5; }
+tr:hover td { background: #ffebee; }
+.money { font-weight: 700; color: var(--c1); white-space: nowrap; }
+.seg-badge { display: inline-block; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+.b-ef1 { background: #e3f2fd; color: #0d47a1; }
+.b-ef2 { background: #e8f5e9; color: #1b5e20; }
+.b-em  { background: #fff3e0; color: #e65100; }
+.b-pm  { background: #fce4ec; color: #880e4f; }
+.b-pv  { background: #f3e5f5; color: #6a1b9a; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; }
+@media(max-width:768px){ .calc-grid{grid-template-columns:1fr;} }
+.calc-inputs { display: flex; flex-direction: column; gap: 14px; }
+.calc-result { background: linear-gradient(135deg,#f8fafc,#fff5f5); border: 2px solid var(--borda); border-radius: 12px; padding: 20px; }
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.campo-label { font-size: 12px; font-weight: 700; color: var(--c1); text-transform: uppercase; letter-spacing: .5px; }
+.input-dual { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.input-dual input { flex:1; min-width:80px; padding:10px 12px; border:2px solid var(--borda); border-radius:9px; font-size:14px; }
+.input-dual input:focus { outline:none; border-color:var(--c2); }
+.pfx { font-size:13px; font-weight:700; color:var(--c2); white-space:nowrap; }
+.ou  { color:#8a9ab0; font-size:11px; font-weight:700; text-transform:uppercase; padding:0 2px; white-space:nowrap; }
+.res-linha { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--borda); font-size:14px; gap:10px; }
+.res-linha:last-child { border-bottom:none; }
+.res-sug { background:var(--verde); color:#fff; border-radius:10px; padding:14px 16px; margin:12px 0; text-align:center; }
+.res-sug .v { font-size:26px; font-weight:800; }
+.res-sug .l { font-size:12px; opacity:.95; text-transform:uppercase; letter-spacing:.5px; }
+.res-block { background:#fff; border-radius:9px; padding:12px 14px; margin-top:10px; font-size:13px; border-left:4px solid var(--c1); }
+.res-block h4 { color:var(--c1); font-size:13px; margin-bottom:6px; }
+.chk { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; cursor:pointer; }
+.chk input { width:18px; height:18px; cursor:pointer; }
+.hint { font-size:12px; color:#607080; margin-top:4px; }
+.serie-info { font-size:11px; color:#607080; margin-top:4px; }
+.cota-destaque { background:#fff9e6; border:2px solid var(--cv); border-radius:9px; padding:10px 14px; margin-top:10px; font-size:13px; }
+.cota-destaque h4 { color:#7a5c00; font-size:13px; margin-bottom:6px; font-weight:700; }
+.mat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+.mat-card { border:2px solid var(--borda); border-radius:12px; overflow:hidden; }
+.mat-head { background:linear-gradient(135deg,var(--c1),var(--c2)); color:#fff; padding:12px 16px; font-weight:800; font-size:14px; }
+.mat-body { padding:14px 16px; }
+.linha { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--borda); font-size:13px; }
+.linha:last-child { border-bottom:none; }
+.linha b { color:var(--c1); }
+.info-box { background:#fff9e6; border-radius:10px; padding:11px 16px; margin-bottom:14px; font-size:13px; color:#7a5c00; border-left:4px solid var(--cv); }
+footer { text-align:center; padding:24px; font-size:12px; color:#8a9ab0; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo-box">MA<span>TRIZ</span></div>
+  <div>
+    <h1>Ciclo de Matrículas 2027</h1>
+    <p>Dashboard de Valores e Calculadora de Negociação — Matriz Educação</p>
+  </div>
+</header>
+<div class="container">
+  <div class="filtros">
+    <div class="campo">
+      <label>🏫 Unidade</label>
+      <select id="sel-unidade" onchange="onUnidadeChange()">
+        <option value="Américas">Américas</option>
+        <option value="Bangu">Bangu</option>
+        <option value="Campo Grande">Campo Grande</option>
+        <option value="Duque de Caxias">Duque de Caxias</option>
+        <option value="Madureira">Madureira</option>
+        <option value="Nova Iguaçu">Nova Iguaçu</option>
+        <option value="Retiro dos Artistas">Retiro dos Artistas</option>
+        <option value="Rocha Miranda">Rocha Miranda</option>
+        <option value="São João de Meriti">São João de Meriti</option>
+        <option value="Taquara">Taquara</option>
+        <option value="Tijuca">Tijuca</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label>📚 Segmento</label>
+      <select id="sel-seg" onchange="onFiltroChange()"><option value="">Todos</option></select>
+    </div>
+    <div class="campo">
+      <label>🎓 Série</label>
+      <select id="sel-serie" onchange="renderTabela()"><option value="">Todas</option></select>
+    </div>
+    <div class="badge" id="badge-unidade">🏫 AMÉRICAS</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab ativo" onclick="trocarTab('tabela',this)">💰 Tabela de Valores</div>
+    <div class="tab" onclick="trocarTab('calc',this)">🧮 Calculadora</div>
+    <div class="tab" onclick="trocarTab('material',this)">📦 Material Didático</div>
+  </div>
+
+  <div id="painel-tabela" class="painel ativo">
+    <div class="card">
+      <h2 id="tabela-titulo">Tabela de Valores 2027 — Américas</h2>
+      <div class="info-box">⚠️ <b>Matriz: 1ª cota = R$ 300,00 fixo + 12 mensalidades.</b> PM = Pré-Militar | PV = Pré-Vestibular. Material varia por unidade.</div>
+      <table>
+        <thead><tr><th>Segmento</th><th>Série</th><th>Turno</th><th>Anuidade</th><th>Mensalidade</th><th>1ª Cota</th><th>Material</th></tr></thead>
+        <tbody id="tabela-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="painel-calc" class="painel">
+    <div class="card">
+      <h2>Calculadora de Negociação — Mensalidade 2027</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Informe o desconto. 1ª cota da Matriz é sempre <b>R$ 300,00</b> (fixo) — pode aplicar desconto separado.</p>
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="input-group">
+            <div class="campo-label">🎓 Série / Turno</div>
+            <select id="cm-serie" onchange="onSerieChange()"><option value="">— selecione —</option></select>
+            <div class="serie-info" id="cm-info"></div>
+          </div>
+          <div class="input-group">
+            <div class="campo-label">Desconto — Mensalidade</div>
+            <div class="input-dual">
+              <span class="pfx">%</span>
+              <input type="number" id="cm-desc" value="0" min="0" max="100" step="0.01" oninput="onDescPctChange()">
+              <span class="ou">ou</span>
+              <span class="pfx">R$</span>
+              <input type="number" id="cm-desc-val" min="0" step="0.01" placeholder="valor final" oninput="onDescValChange()">
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="campo-label" style="background:#7a5c00;color:#fff;padding:5px 10px;border-radius:6px;">Desconto — 1ª Cota (base: R$ 300)</div>
+            <div class="input-dual">
+              <span class="pfx">%</span>
+              <input type="number" id="cm-cota-desc" value="0" min="0" max="100" step="0.01" oninput="calcMens()">
+              <span class="ou">ou</span>
+              <span class="pfx">R$</span>
+              <input type="number" id="cm-cota-desc-val" min="0" max="300" step="0.01" placeholder="valor final (máx 300)" oninput="onCotaValChange()">
+            </div>
+          </div>
+          <label class="chk">
+            <input type="checkbox" id="cm-irmao" onchange="calcMens()">
+            Desconto de irmão (+5%)
+          </label>
+          <p class="hint">Ticket = (1ª cota + 12 × mensalidade) / 12.</p>
+        </div>
+        <div class="calc-result" id="cm-result">
+          <p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="painel-material" class="painel">
+    <div class="card">
+      <h2 id="mat-titulo">Material Didático 2027 — Américas</h2>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Valores por segmento/série na unidade selecionada. Américas não possui material didático.</p>
+      <div class="mat-grid" id="mat-grid"></div>
+    </div>
+  </div>
+</div>
+<footer>Matriz Educação &middot; Ciclo de Matrículas 2027 &middot; Dashboard interno.</footer>
+<script>
+const SEG_ORDER = ['EF1','EF2','EM','PM','PV'];
+
+function getUnidade(){ return document.getElementById('sel-unidade').value; }
+function trocarTab(id,el){
+  document.querySelectorAll('.painel').forEach(p=>p.classList.remove('ativo'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('ativo'));
+  document.getElementById('painel-'+id).classList.add('ativo'); el.classList.add('ativo');
+}
+function onUnidadeChange(){
+  const u=getUnidade();
+  document.getElementById('badge-unidade').textContent='🏫 '+u.toUpperCase();
+  document.getElementById('tabela-titulo').textContent='Tabela de Valores 2027 — '+u;
+  document.getElementById('mat-titulo').textContent='Material Didático 2027 — '+u;
+  const segs=[...new Set(DADOS.filter(d=>d.unidade===u).map(d=>d.segmento))].sort((a,b)=>SEG_ORDER.indexOf(a)-SEG_ORDER.indexOf(b));
+  const selSeg=document.getElementById('sel-seg');
+  selSeg.innerHTML='<option value="">Todos</option>';
+  segs.forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s==='PM'?'PM (Pré-Militar)':s==='PV'?'PV (Pré-Vestibular)':s; selSeg.appendChild(o); });
+  onFiltroChange();
+  populateCalcSeries();
+  renderMaterial();
+}
+function onFiltroChange(){
+  const u=getUnidade(), seg=document.getElementById('sel-seg').value;
+  const sel=document.getElementById('sel-serie'); const prev=sel.value;
+  sel.innerHTML='<option value="">Todas</option>';
+  [...new Set(DADOS.filter(d=>d.unidade===u&&(!seg||d.segmento===seg)).map(d=>d.serie))]
+    .forEach(s=>{ const o=document.createElement('option'); o.value=s; o.textContent=s; if(s===prev)o.selected=true; sel.appendChild(o); });
+  renderTabela();
+}
+function renderTabela(){
+  const u=getUnidade(), seg=document.getElementById('sel-seg').value, ser=document.getElementById('sel-serie').value;
+  const badge={EF1:'b-ef1',EF2:'b-ef2',EM:'b-em',PM:'b-pm',PV:'b-pv'};
+  const dados=DADOS.filter(d=>d.unidade===u&&(!seg||d.segmento===seg)&&(!ser||d.serie===ser));
+  document.getElementById('tabela-body').innerHTML=dados.map(d=>`
+    <tr><td><span class="seg-badge ${badge[d.segmento]||''}">${d.segmento}</span></td>
+    <td>${d.serie}</td><td>${d.turno||'—'}</td>
+    <td class="money">${fmt(d.anuidade)}</td><td class="money">${fmt(d.mensalidade)}</td>
+    <td class="money" style="color:#7a5c00;font-weight:800;">R$ 300,00</td>
+    <td class="money">${fmt(d.material)}</td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:#8a9ab0">Nenhum dado.</td></tr>';
+}
+function populateCalcSeries(){
+  const u=getUnidade(); const sel=document.getElementById('cm-serie');
+  sel.innerHTML='<option value="">— selecione —</option>';
+  SEG_ORDER.forEach(seg=>{
+    const rows=DADOS.filter(d=>d.unidade===u&&d.segmento===seg);
+    if(!rows.length)return;
+    const grp=document.createElement('optgroup'); grp.label=seg==='PM'?'Pré-Militar':seg==='PV'?'Pré-Vestibular':seg;
+    // Deduplica por série+turno
+    const seen=new Set();
+    rows.forEach(d=>{
+      const k=`${d.serie}|${d.turno||''}`;
+      if(seen.has(k))return; seen.add(k);
+      const o=document.createElement('option'); o.value=k; o.textContent=`${d.serie}${d.turno?' ('+d.turno+')':''} — ${fmt(d.mensalidade)}/mês`; grp.appendChild(o);
+    });
+    sel.appendChild(grp);
+  });
+  document.getElementById('cm-result').innerHTML='<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>';
+}
+function getDado(){
+  const v=document.getElementById('cm-serie').value; if(!v)return null;
+  const [serie,turno]=v.split('|');
+  return DADOS.find(d=>d.unidade===getUnidade()&&d.serie===serie&&(d.turno||'')===(turno||''));
+}
+function onSerieChange(){
+  const d=getDado();
+  if(d){ const p=parseFloat(document.getElementById('cm-desc').value)||0; document.getElementById('cm-desc-val').value=p>0?(d.mensalidade*(1-p/100)).toFixed(2):''; }
+  calcMens();
+}
+function onDescPctChange(){ const d=getDado(); if(d){ const p=Math.min(100,Math.max(0,parseFloat(document.getElementById('cm-desc').value)||0)); document.getElementById('cm-desc-val').value=(d.mensalidade*(1-p/100)).toFixed(2); } calcMens(); }
+function onDescValChange(){ const d=getDado(); if(d){ const v=parseFloat(document.getElementById('cm-desc-val').value)||0; document.getElementById('cm-desc').value=Math.min(100,Math.max(0,(1-v/d.mensalidade)*100)).toFixed(2); } calcMens(); }
+function onCotaValChange(){ const v=parseFloat(document.getElementById('cm-cota-desc-val').value)||0; document.getElementById('cm-cota-desc').value=Math.min(100,Math.max(0,(1-v/300)*100)).toFixed(2); calcMens(); }
+function calcMens(){
+  const d=getDado();
+  if(!d){ document.getElementById('cm-result').innerHTML='<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>'; return; }
+  const descPct=parseFloat(document.getElementById('cm-desc').value)||0;
+  const cotaDescPct=parseFloat(document.getElementById('cm-cota-desc').value)||0;
+  const comIrmao=document.getElementById('cm-irmao').checked;
+  const totalDesc=Math.min(100,descPct+(comIrmao?5:0));
+  const mensCalc=d.mensalidade*(1-totalDesc/100);
+  const cotaCalc=300*(1-cotaDescPct/100);
+  const ticket=(cotaCalc+12*mensCalc)/12;
+  const descReais=d.mensalidade-mensCalc;
+  // Sync cota val
+  if(document.activeElement&&document.activeElement.id!=='cm-cota-desc-val')
+    document.getElementById('cm-cota-desc-val').value=cotaCalc.toFixed(2);
+  document.getElementById('cm-info').textContent=`Segmento: ${d.segmento} | Turno: ${d.turno||'—'} | Anuidade: ${fmt(d.anuidade)}`;
+  document.getElementById('cm-result').innerHTML=`
+    <div class="res-linha"><span>Série</span><b>${d.serie}${d.turno?' ('+d.turno+')':''}</b></div>
+    <div class="res-linha"><span>Mensalidade tabela</span><b>${fmt(d.mensalidade)}</b></div>
+    <div class="res-linha"><span>Desconto total</span><b>${totalDesc.toFixed(1)}%${comIrmao?' (incl. irmão)':''}</b></div>
+    <div class="res-sug"><div class="l">Mensalidade a ofertar</div><div class="v">${fmt(mensCalc)}</div></div>
+    <div class="cota-destaque"><h4>📌 1ª Cota — Fixo Matriz</h4>
+      <div class="res-linha"><span>1ª cota base (fixo)</span><b>R$ 300,00</b></div>
+      <div class="res-linha"><span>Desconto na 1ª cota</span><b>${cotaDescPct.toFixed(1)}%</b></div>
+      <div class="res-linha"><span>1ª cota com desconto</span><b>${fmt(cotaCalc)}</b></div>
+    </div>
+    <div class="res-block"><h4>📊 Resumo da Proposta</h4>
+      <div class="res-linha"><span>Ticket (1ª cota + 12×mens) / 12</span><b>${fmt(ticket)}</b></div>
+      <div class="res-linha"><span>Desconto em R$/mês</span><b style="color:var(--c2)">- ${fmt(descReais)}</b></div>
+      <div class="res-linha"><span>Desconto anual total</span><b style="color:var(--c2)">- ${fmt(descReais*12)}</b></div>
+    </div>
+    ${d.material?`<div class="res-block"><h4>📦 Material Didático</h4><div class="res-linha"><span>Valor (tabela)</span><b>${fmt(d.material)}</b></div></div>`:''}`;
+}
+function renderMaterial(){
+  const u=getUnidade(); const blocos={};
+  DADOS.filter(d=>d.unidade===u&&d.material).forEach(d=>{
+    const k=`${d.segmento}|${d.serie}`;
+    if(!blocos[k])blocos[k]={segmento:d.segmento,serie:d.serie,material:d.material};
+  });
+  const badge={EF1:'b-ef1',EF2:'b-ef2',EM:'b-em',PM:'b-pm',PV:'b-pv'};
+  const items=Object.values(blocos).sort((a,b)=>SEG_ORDER.indexOf(a.segmento)-SEG_ORDER.indexOf(b.segmento));
+  document.getElementById('mat-grid').innerHTML=items.length?items.map(b=>`
+    <div class="mat-card">
+      <div class="mat-head"><span class="seg-badge ${badge[b.segmento]||''}" style="margin-right:8px">${b.segmento}</span>${b.serie}</div>
+      <div class="mat-body"><div class="linha"><span>Material didático</span><b>${fmt(b.material)}</b></div></div>
+    </div>`).join(''):'<p style="color:#8a9ab0">Nenhum material nesta unidade.</p>';
+}
+function fmt(v){ if(v==null||v===0)return'—'; return'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+window.onload=function(){ onUnidadeChange(); };
+</script>
+</body>
+</html>
