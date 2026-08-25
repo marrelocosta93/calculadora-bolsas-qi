@@ -2226,5 +2226,89 @@ const METAS = [
     "serie": "3ª Série",
     "ticket_meta": 1398.83,
     "ticket_alvo": 1538.72
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF1",
+    "serie": "1º Ano",
+    "ticket_meta": 1250,
+    "ticket_alvo": 1375.0
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF1",
+    "serie": "2º Ano",
+    "ticket_meta": 1199.81,
+    "ticket_alvo": 1319.79
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF1",
+    "serie": "3º Ano",
+    "ticket_meta": 1469.24,
+    "ticket_alvo": 1616.17
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF1",
+    "serie": "4º Ano",
+    "ticket_meta": 1404.65,
+    "ticket_alvo": 1545.12
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF1",
+    "serie": "5º Ano",
+    "ticket_meta": 1362.76,
+    "ticket_alvo": 1499.04
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF2",
+    "serie": "6º Ano",
+    "ticket_meta": 1319.98,
+    "ticket_alvo": 1451.98
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF2",
+    "serie": "7º Ano",
+    "ticket_meta": 1539.34,
+    "ticket_alvo": 1693.27
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF2",
+    "serie": "8º Ano",
+    "ticket_meta": 1426.08,
+    "ticket_alvo": 1568.69
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EF2",
+    "serie": "9º Ano",
+    "ticket_meta": 1448.18,
+    "ticket_alvo": 1593.0
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EM",
+    "serie": "1ª Série",
+    "ticket_meta": 1451.59,
+    "ticket_alvo": 1596.74
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EM",
+    "serie": "2ª Série",
+    "ticket_meta": 1379.36,
+    "ticket_alvo": 1517.29
+  },
+  {
+    "filial": "Valqueire",
+    "segmento": "EM",
+    "serie": "3ª Série",
+    "ticket_meta": 1439.58,
+    "ticket_alvo": 1583.54
   }
 ];
