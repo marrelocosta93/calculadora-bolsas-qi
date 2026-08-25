@@ -125,7 +125,7 @@ footer { text-align:center; padding:24px; font-size:12px; color:#8a9ab0; }
   <div id="painel-tabela" class="painel ativo">
     <div class="card">
       <h2 id="tabela-titulo">Tabela de Valores 2027 — Américas</h2>
-      <div class="info-box">⚠️ <b>Matriz: 1ª cota = R$ 300,00 fixo + 12 mensalidades.</b> PM = Pré-Militar | PV = Pré-Vestibular. Material varia por unidade.</div>
+      <div class="info-box">⚠️ <b>Matriz: 1ª cota + 12 mensalidades.</b> Cota varia por unidade (Américas: R$ 1.500 | demais: R$ 300). PM = Pré-Militar | PV = Pré-Vestibular.</div>
       <table>
         <thead><tr><th>Segmento</th><th>Série</th><th>Turno</th><th>Anuidade</th><th>Mensalidade</th><th>1ª Cota</th><th>Material</th></tr></thead>
         <tbody id="tabela-body"></tbody>
@@ -136,7 +136,7 @@ footer { text-align:center; padding:24px; font-size:12px; color:#8a9ab0; }
   <div id="painel-calc" class="painel">
     <div class="card">
       <h2>Calculadora de Negociação — Mensalidade 2027</h2>
-      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Informe o desconto. 1ª cota da Matriz é sempre <b>R$ 300,00</b> (fixo) — pode aplicar desconto separado.</p>
+      <p style="font-size:12px;color:#607080;margin-bottom:16px;">Informe o desconto. 1ª cota varia por unidade — a base é exibida ao selecionar a série. Pode aplicar desconto separado na cota.</p>
       <div class="calc-grid">
         <div class="calc-inputs">
           <div class="input-group">
@@ -155,13 +155,13 @@ footer { text-align:center; padding:24px; font-size:12px; color:#8a9ab0; }
             </div>
           </div>
           <div class="input-group">
-            <div class="campo-label" style="background:#7a5c00;color:#fff;padding:5px 10px;border-radius:6px;">Desconto — 1ª Cota (base: R$ 300)</div>
+            <div id="cota-label" class="campo-label" style="background:#7a5c00;color:#fff;padding:5px 10px;border-radius:6px;">Desconto — 1ª Cota (base: R$ 300)</div>
             <div class="input-dual">
               <span class="pfx">%</span>
               <input type="number" id="cm-cota-desc" value="0" min="0" max="100" step="0.01" oninput="calcMens()">
               <span class="ou">ou</span>
               <span class="pfx">R$</span>
-              <input type="number" id="cm-cota-desc-val" min="0" max="300" step="0.01" placeholder="valor final (máx 300)" oninput="onCotaValChange()">
+              <input type="number" id="cm-cota-desc-val" min="0" max="1500" step="0.01" placeholder="valor final" oninput="onCotaValChange()">
             </div>
           </div>
           <label class="chk">
@@ -224,7 +224,7 @@ function renderTabela(){
     <tr><td><span class="seg-badge ${badge[d.segmento]||''}">${d.segmento}</span></td>
     <td>${d.serie}</td><td>${d.turno||'—'}</td>
     <td class="money">${fmt(d.anuidade)}</td><td class="money">${fmt(d.mensalidade)}</td>
-    <td class="money" style="color:#7a5c00;font-weight:800;">R$ 300,00</td>
+    <td class="money" style="color:#7a5c00;font-weight:800;">${fmt(d.cota)}</td>
     <td class="money">${fmt(d.material)}</td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:#8a9ab0">Nenhum dado.</td></tr>';
 }
 function populateCalcSeries(){
@@ -252,12 +252,20 @@ function getDado(){
 }
 function onSerieChange(){
   const d=getDado();
-  if(d){ const p=parseFloat(document.getElementById('cm-desc').value)||0; document.getElementById('cm-desc-val').value=p>0?(d.mensalidade*(1-p/100)).toFixed(2):''; }
+  if(d){
+    const p=parseFloat(document.getElementById('cm-desc').value)||0;
+    document.getElementById('cm-desc-val').value=p>0?(d.mensalidade*(1-p/100)).toFixed(2):'';
+    const cotaBase=d.cota||300;
+    document.getElementById('cota-label').textContent='Desconto — 1ª Cota (base: '+fmt(cotaBase)+')';
+    document.getElementById('cm-cota-desc-val').max=cotaBase;
+    document.getElementById('cm-cota-desc').value='0';
+    document.getElementById('cm-cota-desc-val').value='';
+  }
   calcMens();
 }
 function onDescPctChange(){ const d=getDado(); if(d){ const p=Math.min(100,Math.max(0,parseFloat(document.getElementById('cm-desc').value)||0)); document.getElementById('cm-desc-val').value=(d.mensalidade*(1-p/100)).toFixed(2); } calcMens(); }
 function onDescValChange(){ const d=getDado(); if(d){ const v=parseFloat(document.getElementById('cm-desc-val').value)||0; document.getElementById('cm-desc').value=Math.min(100,Math.max(0,(1-v/d.mensalidade)*100)).toFixed(2); } calcMens(); }
-function onCotaValChange(){ const v=parseFloat(document.getElementById('cm-cota-desc-val').value)||0; document.getElementById('cm-cota-desc').value=Math.min(100,Math.max(0,(1-v/300)*100)).toFixed(2); calcMens(); }
+function onCotaValChange(){ const d=getDado(); if(!d)return; const cotaBase=d.cota||300; const v=parseFloat(document.getElementById('cm-cota-desc-val').value)||0; document.getElementById('cm-cota-desc').value=Math.min(100,Math.max(0,(1-v/cotaBase)*100)).toFixed(2); calcMens(); }
 function calcMens(){
   const d=getDado();
   if(!d){ document.getElementById('cm-result').innerHTML='<p style="color:#8a9ab0;font-size:13px;">Selecione uma série para calcular.</p>'; return; }
@@ -266,7 +274,8 @@ function calcMens(){
   const comIrmao=document.getElementById('cm-irmao').checked;
   const totalDesc=Math.min(100,descPct+(comIrmao?5:0));
   const mensCalc=d.mensalidade*(1-totalDesc/100);
-  const cotaCalc=300*(1-cotaDescPct/100);
+  const cotaBase=d.cota||300;
+  const cotaCalc=cotaBase*(1-cotaDescPct/100);
   const ticket=(cotaCalc+12*mensCalc)/12;
   const descReais=d.mensalidade-mensCalc;
   // Sync cota val
@@ -278,8 +287,8 @@ function calcMens(){
     <div class="res-linha"><span>Mensalidade tabela</span><b>${fmt(d.mensalidade)}</b></div>
     <div class="res-linha"><span>Desconto total</span><b>${totalDesc.toFixed(1)}%${comIrmao?' (incl. irmão)':''}</b></div>
     <div class="res-sug"><div class="l">Mensalidade a ofertar</div><div class="v">${fmt(mensCalc)}</div></div>
-    <div class="cota-destaque"><h4>📌 1ª Cota — Fixo Matriz</h4>
-      <div class="res-linha"><span>1ª cota base (fixo)</span><b>R$ 300,00</b></div>
+    <div class="cota-destaque"><h4>📌 1ª Cota — Matriz</h4>
+      <div class="res-linha"><span>1ª cota base</span><b>${fmt(cotaBase)}</b></div>
       <div class="res-linha"><span>Desconto na 1ª cota</span><b>${cotaDescPct.toFixed(1)}%</b></div>
       <div class="res-linha"><span>1ª cota com desconto</span><b>${fmt(cotaCalc)}</b></div>
     </div>

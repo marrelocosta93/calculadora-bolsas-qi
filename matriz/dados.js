@@ -6,7 +6,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -16,7 +16,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -26,7 +26,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -36,7 +36,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -46,7 +46,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -56,7 +56,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -66,7 +66,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -76,7 +76,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -86,7 +86,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -96,7 +96,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 29266.0,
     "mensalidade": 2251.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -106,7 +106,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -116,7 +116,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -126,7 +126,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -136,7 +136,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 37492.0,
     "mensalidade": 2884.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -146,7 +146,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 37492.0,
     "mensalidade": 2884.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -156,7 +156,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -166,7 +166,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -176,7 +176,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 34427.0,
     "mensalidade": 2648.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -186,7 +186,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 37492.0,
     "mensalidade": 2884.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -196,7 +196,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 37492.0,
     "mensalidade": 2884.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -206,7 +206,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -216,7 +216,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -226,7 +226,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -236,7 +236,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -246,7 +246,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40420.0,
     "mensalidade": 3109.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -256,7 +256,7 @@ const DADOS = [
     "turno": "Manhã",
     "anuidade": 40420.0,
     "mensalidade": 3109.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -266,7 +266,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -276,7 +276,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -286,7 +286,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -296,7 +296,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40264.0,
     "mensalidade": 3097.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -306,7 +306,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40420.0,
     "mensalidade": 3109.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
@@ -316,7 +316,7 @@ const DADOS = [
     "turno": "Tarde",
     "anuidade": 40420.0,
     "mensalidade": 3109.0,
-    "cota": 300.0,
+    "cota": 1500.0,
     "material": null
   },
   {
