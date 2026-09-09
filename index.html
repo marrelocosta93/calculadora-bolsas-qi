@@ -529,7 +529,10 @@ function calcMens() {
   const comIrmao = document.getElementById('cm-irmao').checked;
   const comBiling = document.getElementById('cm-biling').checked && seg === 'EF1';
 
-  let totalDesc = descPct + (comIrmao ? 5 : 0);
+  // Desconto de irmão é aplicado sobre o valor JÁ descontado (multiplicativo),
+  // não somado linearmente ao percentual base.
+  // Exemplo: 50% base + irmão → 100 - (100-50)*0.95 = 52,5% (não 55%)
+  let totalDesc = comIrmao ? 100 - (100 - descPct) * 0.95 : descPct;
   if (totalDesc > 100) totalDesc = 100;
 
   const mensBase = dado.mensalidade;
@@ -620,8 +623,8 @@ function calcMens() {
   document.getElementById('cm-result').innerHTML = `
     <div class="res-linha"><span>Unidade / Série</span><b>${u} · ${serie}</b></div>
     <div class="res-linha"><span>Mensalidade sem desconto</span><b>${fmt(mensBase)}</b></div>
-    <div class="res-linha"><span>% desconto proposto</span><b>${descPct}%${comIrmao ? ' + 5% irmão' : ''}</b></div>
-    <div class="res-linha"><span>Desconto total aplicado</span><b>${totalDesc}%</b></div>
+    <div class="res-linha"><span>% desconto proposto</span><b>${descPct}%${comIrmao ? ' + 5% irmão (sobre valor descontado)' : ''}</b></div>
+    <div class="res-linha"><span>Desconto total aplicado</span><b>${totalDesc.toFixed(2)}%</b></div>
 
     <div class="res-sug">
       <div class="l">Mensalidade sugerida (ofertar ao responsável)</div>
