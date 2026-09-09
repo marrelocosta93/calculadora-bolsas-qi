@@ -309,7 +309,7 @@ function calcMens() {
   const descPct = parseFloat(document.getElementById('cm-desc').value)||0;
   const cotaPct = parseFloat(document.getElementById('cm-cota-desc').value)||0;
   const comIrmao = document.getElementById('cm-irmao').checked;
-  let totalDesc = Math.min(100, descPct + (comIrmao ? 5 : 0));
+  let totalDesc = comIrmao ? 100 - (100 - descPct) * 0.95 : descPct;
 
   const mensCalc = d.mensalidade * (1 - totalDesc/100);
   const cotaCalc = d.cota * (1 - cotaPct/100);
