@@ -957,44 +957,33 @@ const REGRAS = {
       "label": "Até 30/09",
       "anuidade_desc": 0.1,
       "material_avista_desc": 0.1,
-      "material_bo": 11,
+      "material_bo": 4,
       "material_cc": 12,
       "cota_bo": 6,
-      "cota_cc": 12,
-      "cota_obs": "Preço da 1ª cota SEM reajuste (valor 2026)"
+      "cota_cc": "A definir",
+      "cota_obs": "1ª cota no preço 2026 (sem reajuste)"
     },
     {
       "id": "p2",
-      "label": "Até 31/10",
+      "label": "Até 30/11",
       "anuidade_desc": 0.08,
-      "material_avista_desc": 0.08,
-      "material_bo": 10,
+      "material_avista_desc": 0.05,
+      "material_bo": 4,
       "material_cc": 12,
-      "cota_bo": 5,
-      "cota_cc": 12,
-      "cota_obs": "Sem desconto"
+      "cota_bo": "3x (out.) / 2x (nov.)",
+      "cota_cc": "A definir",
+      "cota_obs": "1ª cota no preço 2026 (sem reajuste)"
     },
     {
       "id": "p3",
-      "label": "Até 30/11",
-      "anuidade_desc": 0.08,
-      "material_avista_desc": 0.08,
-      "material_bo": 9,
-      "material_cc": 12,
-      "cota_bo": 4,
-      "cota_cc": 12,
-      "cota_obs": "Sem desconto"
-    },
-    {
-      "id": "p4",
       "label": "Até 31/12",
-      "anuidade_desc": 0.06,
+      "anuidade_desc": 0.05,
       "material_avista_desc": 0.05,
-      "material_bo": 8,
+      "material_bo": 4,
       "material_cc": 12,
-      "cota_bo": 3,
-      "cota_cc": 12,
-      "cota_obs": "Sem desconto"
+      "cota_bo": 1,
+      "cota_cc": "A definir",
+      "cota_obs": "1ª cota no preço 2026 (sem reajuste)"
     }
   ]
 };

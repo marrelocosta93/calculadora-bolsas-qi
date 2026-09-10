@@ -409,8 +409,8 @@ function renderPrazos() {
         <div class="linha"><span>Material — à vista</span><b>${(p.material_avista_desc*100).toFixed(0)}% desc.</b></div>
         <div class="linha"><span>Material — BO</span><b>${p.material_bo}x (ago/27)</b></div>
         <div class="linha"><span>Material — CC</span><b>${p.material_cc}x</b></div>
-        <div class="linha"><span>1ª Cota — BO</span><b>${p.cota_bo}x</b></div>
-        <div class="linha"><span>1ª Cota — CC</span><b>${p.cota_cc}x</b></div>
+        <div class="linha"><span>1ª Cota — BO</span><b>${typeof p.cota_bo === 'number' ? p.cota_bo + 'x' : p.cota_bo}</b></div>
+        <div class="linha"><span>1ª Cota — CC</span><b>${typeof p.cota_cc === 'number' ? p.cota_cc + 'x' : p.cota_cc}</b></div>
         ${p.cota_obs ? `<p class="obs">${p.cota_obs}</p>` : ''}
       </div>
     </div>`).join('');
