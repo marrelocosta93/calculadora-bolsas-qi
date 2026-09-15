@@ -960,9 +960,9 @@ const REGRAS = {
       "material_bo": 9,
       "material_cc": 12,
       "material_obs": "Último vencimento em ago/27",
-      "cota_bo": 6,
+      "cota_bo": 3,
       "cota_cc": 5,
-      "cota_obs": "1ª cota no preço 2026 (sem reajuste)"
+      "cota_obs": null
     },
     {
       "id": "p2",
