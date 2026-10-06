@@ -2053,8 +2053,8 @@ const METAS = [
     "filial": "Recreio",
     "segmento": "EM",
     "serie": "2ª Série",
-    "ticket_meta": 1802.33,
-    "ticket_alvo": 1982.55
+    "ticket_meta": 1918.07,
+    "ticket_alvo": 2109.88
   },
   {
     "filial": "Recreio",
@@ -2144,8 +2144,8 @@ const METAS = [
     "filial": "Rio 2",
     "segmento": "EM",
     "serie": "3ª Série",
-    "ticket_meta": 2054.38,
-    "ticket_alvo": 2259.82
+    "ticket_meta": 2227.55,
+    "ticket_alvo": 2450.31
   },
   {
     "filial": "Tijuca",

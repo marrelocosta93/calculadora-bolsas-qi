@@ -15,7 +15,13 @@ for(const [i,meta] of metas.entries()){
   for(const key of ['filial','segmento','serie'])assert.equal(meta[key],entry[key]);
   for(const field of ['ticket_meta','ticket_alvo']){
     // Integer cent arithmetic: 15% over the published amount, rounded half up.
-    const previousCents=Math.round(entry.antes[field]*100);
+    const source=entry.fonte_planilha;
+    assert.equal(source.base_escolhida,Math.max(source.captacao,source.media_total));
+    const useCaptacao=source.captacao>source.media_total;
+    const reference=useCaptacao
+      ? source.captacao*(field==='ticket_alvo'?1.10:1)
+      : entry.antes[field];
+    const previousCents=Math.round(reference*100);
     const expectedCents=Math.floor((previousCents*115+50)/100);
     assert.equal(Math.round(meta[field]*100),expectedCents,meta.filial+' '+meta.serie+' '+field);
     assert.equal(meta[field],entry.depois[field]);
