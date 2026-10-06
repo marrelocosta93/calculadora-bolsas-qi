@@ -2222,14 +2222,14 @@ const METAS = [
     "segmento": "EM",
     "serie": "2ª Série",
     "ticket_meta": 1799.5,
-    "ticket_alvo": 1979.45
+    "ticket_alvo": 2201.09
   },
   {
     "filial": "Tijuca",
     "segmento": "EM",
     "serie": "3ª Série",
     "ticket_meta": 2073.86,
-    "ticket_alvo": 2281.26
+    "ticket_alvo": 2493.36
   },
   {
     "filial": "Valqueire",

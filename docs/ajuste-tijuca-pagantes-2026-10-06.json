@@ -1,0 +1,25 @@
+{
+  "regra": "Piso de 10% acima do realizado dos pagantes de 2026, apenas Tijuca EM 2 e 3. Preservar as demais metas e bases. Arredondar o alvo para cima ao centavo.",
+  "fator": 1.1,
+  "fonte": "Fichas Financeiras 2026 QI todas.xlsx / Planilha1",
+  "alteracoes": [
+    {
+      "filial": "Tijuca",
+      "segmento": "EM",
+      "serie": "2ª Série",
+      "pagantes": 49,
+      "ticket_realizado_2026": 2000.986462585034,
+      "ticket_anterior": 1979.45,
+      "ticket_novo": 2201.09
+    },
+    {
+      "filial": "Tijuca",
+      "segmento": "EM",
+      "serie": "3ª Série",
+      "pagantes": 47,
+      "ticket_realizado_2026": 2266.689609929078,
+      "ticket_anterior": 2281.26,
+      "ticket_novo": 2493.36
+    }
+  ]
+}
