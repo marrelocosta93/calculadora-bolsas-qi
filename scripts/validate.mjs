@@ -47,3 +47,4 @@ assert.ok(html.includes('const ticketAlvo = meta.ticket_alvo;'));
 assert.equal(metas.find(m=>m.filial==='Tijuca' && m.serie==='2ª Série').ticket_alvo,2201.09);
 assert.equal(metas.find(m=>m.filial==='Tijuca' && m.serie==='3ª Série').ticket_alvo,2493.36);
 console.log('72 metas conferidas; dois pisos da Tijuca validados; demais valores preservados; JSON/JS iguais; sintaxe valida.');
+await import('./validate-sync.mjs');
