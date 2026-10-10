@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ciclo de Matrículas 2027 — Colégio Qi</title>
-<script src="dados.js"></script>
+<script src="dados.js?v=dfcc1356ff925505"></script>
 <style>
 :root {
   --qi-azul: #003b71;
@@ -508,6 +508,10 @@ function onCotaDescValChange() {
 }
 
 function calcMens() {
+  if (!metasConfirmadas) {
+    document.getElementById('cm-result').innerHTML = '<p role="status">' + mensagemMetas + '</p>';
+    return;
+  }
   const u = getUnidade();
   const val = document.getElementById('cm-serie').value;
   if (!val) {
@@ -767,9 +771,65 @@ function fmtNum(v) {
   return 'R$ ' + Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+// METAS_SYNC_START
+const METAS_SYNC = Object.freeze({ intervaloMs: 60000, timeoutMs: 10000, endpoint: 'metas_qi.json' });
+let metasConfirmadas = false;
+let mensagemMetas = 'Conferindo as metas atualizadas…';
+let sincronizacaoMetas = null;
+function sincronizarMetas() {
+  if (sincronizacaoMetas) return sincronizacaoMetas;
+  metasConfirmadas = false;
+  mensagemMetas = 'Conferindo as metas atualizadas…';
+  calcMens();
+  sincronizacaoMetas = (async () => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), METAS_SYNC.timeoutMs);
+    try {
+      const url = new URL(METAS_SYNC.endpoint, document.baseURI);
+      url.searchParams.set('atualizacao', Date.now().toString());
+      const response = await fetch(url, { cache: 'no-store', credentials: 'omit', signal: controller.signal });
+      if (!response.ok) throw new Error('Falha ao consultar metas');
+      const recebidas = await response.json();
+      const chave = m => JSON.stringify([m.filial, m.segmento, m.serie]);
+      const atuais = new Map(METAS.map(m => [chave(m), m]));
+      const vistas = new Set();
+      if (!Array.isArray(recebidas) || recebidas.length !== atuais.size) throw new Error('Base incompleta');
+      for (const m of recebidas) {
+        if (!m || typeof m !== 'object') throw new Error('Meta inválida');
+        const id = chave(m);
+        const anterior = atuais.get(id);
+        if (!anterior || vistas.has(id) || !Number.isFinite(m.ticket_alvo) || !Number.isFinite(m.ticket_meta) || m.ticket_meta < 0 || m.ticket_alvo < anterior.ticket_alvo) {
+          throw new Error('Base inválida ou desatualizada');
+        }
+        vistas.add(id);
+      }
+      METAS.splice(0, METAS.length, ...recebidas);
+      metasConfirmadas = true;
+    } catch {
+      mensagemMetas = 'Não foi possível confirmar as metas atuais. Confira sua conexão e recarregue a página antes de simular uma proposta.';
+    } finally {
+      clearTimeout(timeout);
+      sincronizacaoMetas = null;
+      calcMens();
+    }
+  })();
+  return sincronizacaoMetas;
+}
+window.addEventListener('focus', sincronizarMetas);
+window.addEventListener('online', sincronizarMetas);
+window.addEventListener('pageshow', sincronizarMetas);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') sincronizarMetas();
+});
+setInterval(() => {
+  if (document.visibilityState === 'visible') sincronizarMetas();
+}, METAS_SYNC.intervaloMs);
+// METAS_SYNC_END
+
 // ─── Init ────────────────────────────────────────────────────
 window.onload = function() {
   onUnidadeChange();
+  sincronizarMetas();
 };
 </script>
 </body>
