@@ -34,10 +34,13 @@ assert.equal(stale.calls[0].options.credentials,'omit');
 assert.ok(new URL(stale.calls[0].url).searchParams.has('atualizacao'));
 assert.deepEqual(stale.renders,[false,true]);
 const series=current.find(m=>m.filial==='Tijuca'&&m.serie==='8º Ano');
-assert.equal(series.ticket_alvo,2237.07);
-assert.equal(stale.context.METAS.find(m=>m.filial==='Tijuca'&&m.serie==='8º Ano').ticket_alvo,2237.07);
+assert.equal(stale.context.METAS.find(m=>m.filial==='Tijuca'&&m.serie==='8º Ano').ticket_alvo,series.ticket_alvo);
+const formerlyHigher=setup(current.map(m=>({...m,ticket_alvo:m.ticket_alvo+1000})));
+await formerlyHigher.run();
+assert.equal(formerlyHigher.confirmed(),true,'Revisão autorizada aceita redução');
+assert.deepEqual(formerlyHigher.context.METAS,current);
 
-for (const bad of [old,current.slice(1),[...current.slice(1),current[1]],current.map((m,i)=>i?m:{...m,ticket_alvo:'2237.07'}),null]) {
+for (const bad of [old,current.map(m=>({...m,versao:'antiga'})),current.slice(1),[...current.slice(1),current[1]],current.map((m,i)=>i?m:{...m,ticket_alvo:'2237.07'}),current.map((m,i)=>i?m:{...m,ticket_alvo:0}),null]) {
   const test=setup();test.reply(bad);await test.run();
   assert.equal(test.confirmed(),false);
   assert.deepEqual(test.context.METAS,current,'Falha deve preservar atomicamente as metas');
@@ -53,4 +56,4 @@ for(const event of ['focus','pageshow','visibilitychange']){
 const periodic=setup(old);periodic.interval();await periodic.run();assert.deepEqual(periodic.context.METAS,current);
 const headers=JSON.parse(readFileSync('vercel.json','utf8')).headers;
 assert.ok(headers.some(rule=>rule.source==='/(.*)'&&rule.headers.some(h=>h.key==='Cache-Control'&&h.value.includes('no-store'))));
-console.log('Sincronização validada: dados antigos, foco, retorno, atualização periódica, falha de rede, base incompleta e recusa de redução.');
+console.log('Sincronização validada: revisão autorizada, recusa de versão antiga, foco, retorno, atualização periódica, falha de rede e base incompleta.');

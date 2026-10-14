@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ciclo de Matrículas 2027 — Colégio Qi</title>
-<script src="dados.js?v=dfcc1356ff925505"></script>
+<script src="dados.js?v=4ad0388946337aba"></script>
 <style>
 :root {
   --qi-azul: #003b71;
@@ -573,14 +573,14 @@ function calcMens() {
     const isAcima = ticketProposto >= ticketAlvo;
     const cls = isAcima ? 'acima' : 'abaixo';
     const statusIcon = isAcima ? '✅' : '⚠️';
-    const statusText = isAcima ? 'ACIMA DA META' : 'ABAIXO DA META';
+    const statusText = isAcima ? 'DENTRO DA REFERÊNCIA' : 'ABAIXO DA REFERÊNCIA';
     const deltaStr = (diff >= 0 ? '+' : '-') + fmtNum(diff) + ' (' + (diffPct >= 0 ? '+' : '') + diffPct.toFixed(1) + '%)';
     const deltaCls = diff >= 0 ? 'positivo' : 'negativo';
 
     metaHtml = `
     <div class="meta-block ${cls}">
-      <h4>🎯 Indicador de Meta — ${serie}</h4>
-      <div class="meta-linha"><span>🎯 Ticket Alvo</span><b>${fmt(ticketAlvo)}</b></div>
+      <h4>🎯 Referência para nova matrícula — ${serie}</h4>
+      <div class="meta-linha"><span>🎯 Ticket de referência</span><b>${fmt(ticketAlvo)}</b></div>
       <div class="meta-linha"><span>Ticket proposto (12 mens. + 1ª cota) / 12</span><b>${fmt(ticketProposto)}</b></div>
       <div class="meta-status ${isAcima ? 'verde' : 'vermelho'}">
         ${statusIcon} ${statusText}
@@ -589,6 +589,12 @@ function calcMens() {
     </div>`;
 
     // Sugestão: dado o desconto da 1ª cota, qual mensalidade mínima atinge o alvo?
+    if (meta.receita_pendente > 0.01) {
+      metaHtml += `<div class="meta-block" style="border-color:#d99000;background:#fff8e8">
+        <b>Receita de captação ainda não recuperada</b>
+        <p>No ticket de referência, com ${meta.pagantes_restantes} novas matrículas pagantes, faltam ${fmt(meta.receita_pendente)} de receita anual. Seriam necessários mais ${meta.pagantes_adicionais} pagante(s) nesse ticket.</p>
+      </div>`;
+    }
     // ticket_alvo = (12 × mens_nec + cota_calc) / 12  =>  mens_nec = (12 × ticket_alvo − cota_calc) / 12
     const mensNecessaria = (12 * ticketAlvo - cotaCalc) / 12;
     const descMaxMens = (1 - mensNecessaria / mensBase) * 100;
@@ -596,9 +602,9 @@ function calcMens() {
 
     let sugestaoStatusHtml = '';
     if (mensNecessaria <= 0) {
-      sugestaoStatusHtml = `<div class="meta-status vermelho" style="margin-top:8px">⚠️ Impossível atingir o alvo com ${cotaDescPct}% de desconto na 1ª cota — a cota descontada já está abaixo do ticket alvo.</div>`;
+      sugestaoStatusHtml = `<div class="meta-status verde" style="margin-top:8px">✅ A primeira cota já cobre o ticket de referência equivalente.</div>`;
     } else if (descMaxMens < 0) {
-      sugestaoStatusHtml = `<div class="meta-status verde" style="margin-top:8px">✅ Mesmo sem desconto na mensalidade, o ticket alvo é atingido com ${cotaDescPct}% de desconto na 1ª cota.</div>`;
+      sugestaoStatusHtml = `<div class="meta-status vermelho" style="margin-top:8px">⚠️ Com esse desconto na primeira cota, nem a mensalidade cheia atinge a referência. Revise a condição da primeira cota.</div>`;
     } else {
       const propOkCls = propstaOk ? 'verde' : 'vermelho';
       const propOkIcon = propstaOk ? '✅' : '⚠️';
@@ -772,7 +778,7 @@ function fmtNum(v) {
 }
 
 // METAS_SYNC_START
-const METAS_SYNC = Object.freeze({ intervaloMs: 60000, timeoutMs: 10000, endpoint: 'metas_qi.json' });
+const METAS_SYNC = Object.freeze({ intervaloMs: 60000, timeoutMs: 10000, endpoint: 'metas_qi.json', versao: '2026-10-14-captacao-40-v1' });
 let metasConfirmadas = false;
 let mensagemMetas = 'Conferindo as metas atualizadas…';
 let sincronizacaoMetas = null;
@@ -798,7 +804,7 @@ function sincronizarMetas() {
         if (!m || typeof m !== 'object') throw new Error('Meta inválida');
         const id = chave(m);
         const anterior = atuais.get(id);
-        if (!anterior || vistas.has(id) || !Number.isFinite(m.ticket_alvo) || !Number.isFinite(m.ticket_meta) || m.ticket_meta < 0 || m.ticket_alvo < anterior.ticket_alvo) {
+        if (!anterior || vistas.has(id) || !Number.isFinite(m.ticket_alvo) || !Number.isFinite(m.ticket_meta) || m.ticket_meta < 0 || m.ticket_alvo <= 0 || m.versao !== METAS_SYNC.versao) {
           throw new Error('Base inválida ou desatualizada');
         }
         vistas.add(id);
