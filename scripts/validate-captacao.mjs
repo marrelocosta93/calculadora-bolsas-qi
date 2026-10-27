@@ -4,38 +4,52 @@ import assert from 'node:assert/strict';
 const context=vm.createContext({});
 vm.runInContext(readFileSync('dados.js','utf8'),context);
 const metas=JSON.parse(vm.runInContext('JSON.stringify(METAS)',context));
-const report=JSON.parse(readFileSync('docs/captacao-40-2026-10-14.json','utf8'));
-const previous=JSON.parse(readFileSync('docs/reajuste-qi-2026-10-06.json','utf8'));
+const prices=JSON.parse(vm.runInContext('JSON.stringify(DADOS)',context));
+const report=JSON.parse(readFileSync('docs/metas-2026-10-27.json','utf8'));
+const cents=v=>Math.round((v+Number.EPSILON)*100)/100;
 assert.equal(metas.length,72);
-assert.equal(report.rows.length,60);
+assert.equal(report.rows.length,72);
 assert.equal(new Set(metas.map(m=>[m.filial,m.segmento,m.serie].join('|'))).size,72);
 assert.deepEqual(metas,JSON.parse(readFileSync('metas_qi.json','utf8')));
-const ceil=v=>Math.ceil((v-1e-9)*100)/100;
-const floor=v=>Math.floor((v+1e-9)*100)/100;
 for(const m of metas){
- assert.equal(m.versao,report.version);
- if(m.filial==='Valqueire'){
-  const old=previous.metas.find(r=>r.filial===m.filial&&r.serie===m.serie);
-  assert.equal(m.ticket_meta,old.depois.ticket_meta);
-  assert.equal(m.ticket_alvo,old.depois.ticket_alvo);
-  continue;
- }
  const r=report.rows.find(r=>r.unit===m.filial&&r.series===m.serie);
- const recovery=r.remaining_payers?Math.max(0,r.revenue_goal-r.realized)/(12*r.remaining_payers):0;
- const reference=ceil(Math.max(recovery,r.current_ticket??0,r.capture_meta));
- const cap=floor(Math.min((r.current_ticket??r.capture_meta)*1.4,r.table_monthly+r.table_quota/12));
- const expected=Math.min(reference,cap);
+ assert.ok(r);
+ assert.equal(m.versao,report.version);
+ const base=r.official_meta*1.1;
+ const actual=r.payers?r.realized_revenue/r.payers/12:null;
+ const total=Math.floor(Math.floor(r.capture_goal*.95)*(1-r.historical_rate));
+ const remaining=r.remaining_override??Math.max(0,total-r.payers);
+ assert.equal(r.remaining,remaining);
+ const gap=Math.max(0,r.revenue_goal-r.realized_revenue);
+ const recovery=remaining?gap/remaining/12:gap===0?0:null;
+ const critical=r.payers>0&&actual<r.official_meta&&(recovery===null||recovery>base);
+ assert.equal(r.critical,critical);
+ const expected=cents(critical?Math.min(recovery??Infinity,r.official_meta*1.2):base);
+ assert.equal(m.ticket_meta,cents(base));
  assert.equal(m.ticket_alvo,expected,`${m.filial}/${m.serie}`);
- assert.ok(m.ticket_alvo<=cap);
- const gap=Math.max(0,r.revenue_goal-r.realized-r.remaining_payers*expected*12);
- assert.equal(m.receita_pendente,Math.round(gap*100)/100);
- assert.equal(m.pagantes_adicionais,gap>0.01?Math.ceil(gap/(expected*12)):0);
+ assert.ok(expected>=cents(base)&&expected<=cents(r.official_meta*1.2));
+ const price=prices.find(p=>p.unidade===m.filial&&p.serie===m.serie&&p.segmento===m.segmento);
+ assert.ok(price);
+ assert.ok(expected<=price.mensalidade+price.cota/12);
+ if(m.filial==='Valqueire'){
+  assert.equal(m.projecao_pendente,true);
+  assert.equal(m.receita_pendente,null);
+  assert.equal(m.pagantes_restantes,null);
+ }else{
+  assert.equal(m.projecao_pendente,false);
+  assert.equal(m.receita_pendente,cents(Math.max(0,gap-remaining*expected*12)));
+ }
 }
-assert.equal(metas.find(m=>m.filial==='Metropolitano'&&m.serie==='2º Ano').ticket_alvo,1554.53);
-assert.equal(metas.find(m=>m.filial==='Freguesia'&&m.serie==='7º Ano').ticket_alvo,1594.39);
-assert.equal(report.rows.filter(r=>r.deficit>0.01).length,19);
+const target=(unit,series)=>metas.find(m=>m.filial===unit&&m.serie===series).ticket_alvo;
+assert.equal(target('Rio 2','4º Ano'),2416.72);
+assert.equal(target('Rio 2','2ª Série'),2130.70);
+assert.equal(target('Metropolitano','6º Ano'),1583.84);
+assert.equal(target('Valqueire','1º Ano'),1365.44);
+assert.equal(target('Valqueire','2º Ano'),1389.26);
+assert.equal(target('Valqueire','6º Ano'),1548.67);
+assert.equal(report.rows.filter(r=>r.critical).length,20);
 const page=readFileSync('index.html','utf8');
 for(const [,code] of page.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(code);
-assert.ok(page.includes('Receita de captação ainda não recuperada'));
+assert.ok(page.includes('Meta da série'));
 await import('./validate-sync.mjs');
-console.log('60 novos alvos; 12 Valqueire preservados; teto, pisos, déficits e adicionais conferidos.');
+console.log('PASS: 72 targets, 20 exceptions, authorized reductions, revenue projections and synchronization.');

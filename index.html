@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ciclo de Matrículas 2027 — Colégio Qi</title>
-<script src="dados.js?v=4ad0388946337aba"></script>
+<script src="dados.js?v=c743ecb60eea2837"></script>
 <style>
 :root {
   --qi-azul: #003b71;
@@ -580,6 +580,7 @@ function calcMens() {
     metaHtml = `
     <div class="meta-block ${cls}">
       <h4>🎯 Referência para nova matrícula — ${serie}</h4>
+      <div class="meta-linha"><span>Meta da série</span><b>${fmt(ticketMeta)}</b></div>
       <div class="meta-linha"><span>🎯 Ticket de referência</span><b>${fmt(ticketAlvo)}</b></div>
       <div class="meta-linha"><span>Ticket proposto (12 mens. + 1ª cota) / 12</span><b>${fmt(ticketProposto)}</b></div>
       <div class="meta-status ${isAcima ? 'verde' : 'vermelho'}">
@@ -589,7 +590,7 @@ function calcMens() {
     </div>`;
 
     // Sugestão: dado o desconto da 1ª cota, qual mensalidade mínima atinge o alvo?
-    if (meta.receita_pendente > 0.01) {
+    if (!meta.projecao_pendente && meta.receita_pendente > 0.01) {
       metaHtml += `<div class="meta-block" style="border-color:#d99000;background:#fff8e8">
         <b>Receita de captação ainda não recuperada</b>
         <p>No ticket de referência, com ${meta.pagantes_restantes} novas matrículas pagantes, faltam ${fmt(meta.receita_pendente)} de receita anual. Seriam necessários mais ${meta.pagantes_adicionais} pagante(s) nesse ticket.</p>
@@ -778,7 +779,7 @@ function fmtNum(v) {
 }
 
 // METAS_SYNC_START
-const METAS_SYNC = Object.freeze({ intervaloMs: 60000, timeoutMs: 10000, endpoint: 'metas_qi.json', versao: '2026-10-14-captacao-40-v1' });
+const METAS_SYNC = Object.freeze({ intervaloMs: 60000, timeoutMs: 10000, endpoint: 'metas_qi.json', versao: '2026-10-27-captacao-meta10-20-v1' });
 let metasConfirmadas = false;
 let mensagemMetas = 'Conferindo as metas atualizadas…';
 let sincronizacaoMetas = null;
