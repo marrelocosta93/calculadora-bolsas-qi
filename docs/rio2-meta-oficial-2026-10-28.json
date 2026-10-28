@@ -1,0 +1,66 @@
+{
+  "version": "2026-10-28-rio2-meta-oficial-v1",
+  "rule": "Rio 2: official capture target without margin or recovery uplift. Other units unchanged. Financial projection source remains 26/10.",
+  "changes": [
+    {
+      "serie": "1º Ano",
+      "antes": 2636.42,
+      "depois": 2197.02
+    },
+    {
+      "serie": "2º Ano",
+      "antes": 2636.42,
+      "depois": 2197.02
+    },
+    {
+      "serie": "3º Ano",
+      "antes": 2416.72,
+      "depois": 2197.02
+    },
+    {
+      "serie": "4º Ano",
+      "antes": 2416.72,
+      "depois": 2197.02
+    },
+    {
+      "serie": "5º Ano",
+      "antes": 2573.87,
+      "depois": 2197.02
+    },
+    {
+      "serie": "6º Ano",
+      "antes": 2035.17,
+      "depois": 1850.15
+    },
+    {
+      "serie": "7º Ano",
+      "antes": 2035.17,
+      "depois": 1850.15
+    },
+    {
+      "serie": "8º Ano",
+      "antes": 2035.17,
+      "depois": 1850.15
+    },
+    {
+      "serie": "9º Ano",
+      "antes": 2035.17,
+      "depois": 1850.15
+    },
+    {
+      "serie": "1ª Série",
+      "antes": 2324.4,
+      "depois": 1937.0
+    },
+    {
+      "serie": "2ª Série",
+      "antes": 2130.7,
+      "depois": 1937.0
+    },
+    {
+      "serie": "3ª Série",
+      "antes": 2130.7,
+      "depois": 1937.0
+    }
+  ]
+}
