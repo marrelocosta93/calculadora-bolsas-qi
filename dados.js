@@ -1744,19 +1744,6 @@ const PORTAS = [
     ]
   },
   {
-    "data": "14/11/2026",
-    "label": "14 de Novembro",
-    "participantes": [
-      "Freguesia",
-      "Metropolitano",
-      "Recreio",
-      "Rio 2",
-      "Tijuca",
-      "Valqueire"
-    ],
-    "fora": []
-  },
-  {
     "data": "28/11/2026",
     "label": "28 de Novembro",
     "participantes": [
