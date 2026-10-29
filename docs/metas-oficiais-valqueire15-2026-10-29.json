@@ -1,0 +1,438 @@
+{
+  "version": "2026-10-29-oficial-valqueire15-v1",
+  "rule": "All QI official capture targets; Valqueire realized capture ticket from26Oct +15%, no other uplift. Both displayed target and reference. Jan10 event moved toJan09.",
+  "changes": [
+    {
+      "unit": "Freguesia",
+      "series": "1º Ano",
+      "before": 1384.99,
+      "after": 1259.08
+    },
+    {
+      "unit": "Freguesia",
+      "series": "2º Ano",
+      "before": 1384.99,
+      "after": 1259.08
+    },
+    {
+      "unit": "Freguesia",
+      "series": "3º Ano",
+      "before": 1384.99,
+      "after": 1259.08
+    },
+    {
+      "unit": "Freguesia",
+      "series": "4º Ano",
+      "before": 1384.99,
+      "after": 1259.08
+    },
+    {
+      "unit": "Freguesia",
+      "series": "5º Ano",
+      "before": 1384.99,
+      "after": 1259.08
+    },
+    {
+      "unit": "Freguesia",
+      "series": "6º Ano",
+      "before": 1718.26,
+      "after": 1431.88
+    },
+    {
+      "unit": "Freguesia",
+      "series": "7º Ano",
+      "before": 1575.07,
+      "after": 1431.88
+    },
+    {
+      "unit": "Freguesia",
+      "series": "8º Ano",
+      "before": 1575.07,
+      "after": 1431.88
+    },
+    {
+      "unit": "Freguesia",
+      "series": "9º Ano",
+      "before": 1575.07,
+      "after": 1431.88
+    },
+    {
+      "unit": "Freguesia",
+      "series": "1ª Série",
+      "before": 1836.49,
+      "after": 1530.4
+    },
+    {
+      "unit": "Freguesia",
+      "series": "2ª Série",
+      "before": 1836.49,
+      "after": 1530.4
+    },
+    {
+      "unit": "Freguesia",
+      "series": "3ª Série",
+      "before": 1683.45,
+      "after": 1530.4
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "1º Ano",
+      "before": 1340.71,
+      "after": 1117.26
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "2º Ano",
+      "before": 1340.71,
+      "after": 1117.26
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "3º Ano",
+      "before": 1228.98,
+      "after": 1117.26
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "4º Ano",
+      "before": 1228.98,
+      "after": 1117.26
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "5º Ano",
+      "before": 1228.98,
+      "after": 1117.26
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "6º Ano",
+      "before": 1583.84,
+      "after": 1319.87
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "7º Ano",
+      "before": 1583.84,
+      "after": 1319.87
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "8º Ano",
+      "before": 1451.85,
+      "after": 1319.87
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "9º Ano",
+      "before": 1583.84,
+      "after": 1319.87
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "1ª Série",
+      "before": 1276.48,
+      "after": 1160.44
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "2ª Série",
+      "before": 1276.48,
+      "after": 1160.44
+    },
+    {
+      "unit": "Metropolitano",
+      "series": "3ª Série",
+      "before": 1276.48,
+      "after": 1160.44
+    },
+    {
+      "unit": "Recreio",
+      "series": "1º Ano",
+      "before": 1545.14,
+      "after": 1404.67
+    },
+    {
+      "unit": "Recreio",
+      "series": "2º Ano",
+      "before": 1545.14,
+      "after": 1404.67
+    },
+    {
+      "unit": "Recreio",
+      "series": "3º Ano",
+      "before": 1545.14,
+      "after": 1404.67
+    },
+    {
+      "unit": "Recreio",
+      "series": "4º Ano",
+      "before": 1545.14,
+      "after": 1404.67
+    },
+    {
+      "unit": "Recreio",
+      "series": "5º Ano",
+      "before": 1545.14,
+      "after": 1404.67
+    },
+    {
+      "unit": "Recreio",
+      "series": "6º Ano",
+      "before": 1807.4,
+      "after": 1643.09
+    },
+    {
+      "unit": "Recreio",
+      "series": "7º Ano",
+      "before": 1807.4,
+      "after": 1643.09
+    },
+    {
+      "unit": "Recreio",
+      "series": "8º Ano",
+      "before": 1807.4,
+      "after": 1643.09
+    },
+    {
+      "unit": "Recreio",
+      "series": "9º Ano",
+      "before": 1807.4,
+      "after": 1643.09
+    },
+    {
+      "unit": "Recreio",
+      "series": "1ª Série",
+      "before": 1834.68,
+      "after": 1667.89
+    },
+    {
+      "unit": "Recreio",
+      "series": "2ª Série",
+      "before": 1834.68,
+      "after": 1667.89
+    },
+    {
+      "unit": "Recreio",
+      "series": "3ª Série",
+      "before": 1834.68,
+      "after": 1667.89
+    },
+    {
+      "unit": "Rio 2",
+      "series": "1º Ano",
+      "before": 2197.02,
+      "after": 2197.02
+    },
+    {
+      "unit": "Rio 2",
+      "series": "2º Ano",
+      "before": 2197.02,
+      "after": 2197.02
+    },
+    {
+      "unit": "Rio 2",
+      "series": "3º Ano",
+      "before": 2197.02,
+      "after": 2197.02
+    },
+    {
+      "unit": "Rio 2",
+      "series": "4º Ano",
+      "before": 2197.02,
+      "after": 2197.02
+    },
+    {
+      "unit": "Rio 2",
+      "series": "5º Ano",
+      "before": 2197.02,
+      "after": 2197.02
+    },
+    {
+      "unit": "Rio 2",
+      "series": "6º Ano",
+      "before": 1850.15,
+      "after": 1850.15
+    },
+    {
+      "unit": "Rio 2",
+      "series": "7º Ano",
+      "before": 1850.15,
+      "after": 1850.15
+    },
+    {
+      "unit": "Rio 2",
+      "series": "8º Ano",
+      "before": 1850.15,
+      "after": 1850.15
+    },
+    {
+      "unit": "Rio 2",
+      "series": "9º Ano",
+      "before": 1850.15,
+      "after": 1850.15
+    },
+    {
+      "unit": "Rio 2",
+      "series": "1ª Série",
+      "before": 1937.0,
+      "after": 1937.0
+    },
+    {
+      "unit": "Rio 2",
+      "series": "2ª Série",
+      "before": 1937.0,
+      "after": 1937.0
+    },
+    {
+      "unit": "Rio 2",
+      "series": "3ª Série",
+      "before": 1937.0,
+      "after": 1937.0
+    },
+    {
+      "unit": "Tijuca",
+      "series": "1º Ano",
+      "before": 1541.31,
+      "after": 1401.19
+    },
+    {
+      "unit": "Tijuca",
+      "series": "2º Ano",
+      "before": 1681.43,
+      "after": 1401.19
+    },
+    {
+      "unit": "Tijuca",
+      "series": "3º Ano",
+      "before": 1541.31,
+      "after": 1401.19
+    },
+    {
+      "unit": "Tijuca",
+      "series": "4º Ano",
+      "before": 1681.43,
+      "after": 1401.19
+    },
+    {
+      "unit": "Tijuca",
+      "series": "5º Ano",
+      "before": 1541.31,
+      "after": 1401.19
+    },
+    {
+      "unit": "Tijuca",
+      "series": "6º Ano",
+      "before": 1630.33,
+      "after": 1482.12
+    },
+    {
+      "unit": "Tijuca",
+      "series": "7º Ano",
+      "before": 1630.33,
+      "after": 1482.12
+    },
+    {
+      "unit": "Tijuca",
+      "series": "8º Ano",
+      "before": 1630.33,
+      "after": 1482.12
+    },
+    {
+      "unit": "Tijuca",
+      "series": "9º Ano",
+      "before": 1630.33,
+      "after": 1482.12
+    },
+    {
+      "unit": "Tijuca",
+      "series": "1ª Série",
+      "before": 1343.84,
+      "after": 1221.67
+    },
+    {
+      "unit": "Tijuca",
+      "series": "2ª Série",
+      "before": 1343.84,
+      "after": 1221.67
+    },
+    {
+      "unit": "Tijuca",
+      "series": "3ª Série",
+      "before": 1343.84,
+      "after": 1221.67
+    },
+    {
+      "unit": "Valqueire",
+      "series": "1º Ano",
+      "before": 1365.44,
+      "after": 1217.77
+    },
+    {
+      "unit": "Valqueire",
+      "series": "2º Ano",
+      "before": 1389.26,
+      "after": 1270.7
+    },
+    {
+      "unit": "Valqueire",
+      "series": "3º Ano",
+      "before": 1273.49,
+      "after": 1562.24
+    },
+    {
+      "unit": "Valqueire",
+      "series": "4º Ano",
+      "before": 1350.85,
+      "after": 1256.93
+    },
+    {
+      "unit": "Valqueire",
+      "series": "5º Ano",
+      "before": 1273.49,
+      "after": 1672.42
+    },
+    {
+      "unit": "Valqueire",
+      "series": "6º Ano",
+      "before": 1548.67,
+      "after": 1363.93
+    },
+    {
+      "unit": "Valqueire",
+      "series": "7º Ano",
+      "before": 1548.67,
+      "after": 1824.57
+    },
+    {
+      "unit": "Valqueire",
+      "series": "8º Ano",
+      "before": 1548.67,
+      "after": 1653.01
+    },
+    {
+      "unit": "Valqueire",
+      "series": "9º Ano",
+      "before": 1618.25,
+      "after": 1539.98
+    },
+    {
+      "unit": "Valqueire",
+      "series": "1ª Série",
+      "before": 1409.66,
+      "after": 1550.81
+    },
+    {
+      "unit": "Valqueire",
+      "series": "2ª Série",
+      "before": 1530.24,
+      "after": 1392.89
+    },
+    {
+      "unit": "Valqueire",
+      "series": "3ª Série",
+      "before": 1537.81,
+      "after": 1460.92
+    }
+  ]
+}
