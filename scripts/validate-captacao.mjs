@@ -61,4 +61,5 @@ const page=readFileSync('index.html','utf8');
 for(const [,code] of page.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(code);
 assert.ok(page.includes('Meta da série'));
 await import('./validate-sync.mjs');
+await import('./validate-material.mjs');
 console.log('PASS: 60 official targets, 12 Valqueire actual+15%, January09 event, projections and synchronization.');

@@ -1640,6 +1640,13 @@ const MBLOCOS = [
   }
 ];
 
+// Tabela de Preços 2027 - Qi.pdf, página 2. Valores anuais por produto.
+const MATERIAIS_EXTRAS = [
+  { produto: 'international', nome: 'International School', bloco: 'EF1 · 1º ao 5º Ano', material: 817.57, series: ['1º Ano', '2º Ano', '3º Ano', '4º Ano', '5º Ano'] },
+  { produto: 'mooney', nome: 'Mooney', bloco: 'EF1 · 4º e 5º Ano', material: 300.58, series: ['4º Ano', '5º Ano'] },
+  { produto: 'mooney', nome: 'Mooney', bloco: 'EF2 · 6º ao 9º Ano', material: 240.46, series: ['6º Ano', '7º Ano', '8º Ano', '9º Ano'] },
+];
+
 const BILING = {
   "anuidade": 10620,
   "parcelas": [
