@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ciclo de Matrículas 2027 — Colégio Qi</title>
-<script src="dados.js?v=9368b7189d2cca69"></script>
+<script src="dados.js?v=eb75da6b42e4f4f9"></script>
 <style>
 :root {
   --qi-azul: #003b71;
@@ -277,6 +277,14 @@ footer { text-align: center; padding: 24px; font-size: 12px; color: #8a9ab0; }
       <p style="font-size:12px;color:#607080;margin-bottom:16px;">Mesmo formato da calculadora de mensalidade, respeitando as <b>regras do Material Didático</b>: desconto à vista por prazo, parcelamento no BO (último venc. ago/27) e no CC.</p>
       <div class="calc-grid">
         <div class="calc-inputs">
+          <div class="input-group">
+            <label class="campo-label" for="mat-produto">📚 Produto</label>
+            <select id="mat-produto" onchange="populateBlocosMaterial(); calcMat();">
+              <option value="regular">Material didático</option>
+              <option value="international">International School — Livro de Inglês</option>
+              <option value="mooney">Mooney</option>
+            </select>
+          </div>
           <div class="input-group">
             <div class="campo-label">📦 Bloco de séries</div>
             <select id="mat-bloco" onchange="calcMat()">
@@ -661,18 +669,7 @@ function calcMens() {
 
 // ─── Tab 4: Calculadora de Material ─────────────────────────
 function populateCalcMat() {
-  const u = getUnidade();
-  const selBloco = document.getElementById('mat-bloco');
-  selBloco.innerHTML = '<option value="">— selecione —</option>';
-
-  const blocos = MBLOCOS.filter(b => b.unidade === u);
-  blocos.forEach(b => {
-    const opt = document.createElement('option');
-    opt.value = b.bloco;
-    opt.textContent = `${b.bloco} — ${fmt(b.material)}`;
-    selBloco.appendChild(opt);
-  });
-
+  populateBlocosMaterial();
   const selPrazo = document.getElementById('mat-prazo');
   selPrazo.innerHTML = '<option value="">— selecione —</option>';
   REGRAS.prazos.forEach(p => {
@@ -681,8 +678,29 @@ function populateCalcMat() {
     opt.textContent = p.label;
     selPrazo.appendChild(opt);
   });
-
   document.getElementById('mat-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione o bloco e o prazo para calcular.</p>';
+}
+
+function getBlocosMaterial() {
+  const produto = document.getElementById('mat-produto').value;
+  return produto === 'regular'
+    ? MBLOCOS.filter(b => b.unidade === getUnidade())
+    : MATERIAIS_EXTRAS.filter(b => b.produto === produto);
+}
+
+function populateBlocosMaterial() {
+  const selBloco = document.getElementById('mat-bloco');
+  selBloco.innerHTML = '<option value="">— selecione —</option>';
+
+  const blocos = getBlocosMaterial();
+  blocos.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.bloco;
+    opt.textContent = `${b.bloco} — ${fmt(b.material)}`;
+    selBloco.appendChild(opt);
+  });
+
+  document.getElementById('mat-serie-tags').innerHTML = '';
 }
 
 function calcMat() {
@@ -690,11 +708,12 @@ function calcMat() {
   const blocoNome = document.getElementById('mat-bloco').value;
   const prazoId = document.getElementById('mat-prazo').value;
   if (!blocoNome || !prazoId) {
+    document.getElementById('mat-serie-tags').innerHTML = '';
     document.getElementById('mat-result').innerHTML = '<p style="color:#8a9ab0;font-size:13px;">Selecione o bloco e o prazo para calcular.</p>';
     return;
   }
 
-  const bloco = MBLOCOS.find(b => b.unidade === u && b.bloco === blocoNome);
+  const bloco = getBlocosMaterial().find(b => b.bloco === blocoNome);
   const prazo = REGRAS.prazos.find(p => p.id === prazoId);
   if (!bloco || !prazo) return;
 
@@ -708,6 +727,7 @@ function calcMat() {
   document.getElementById('mat-serie-tags').innerHTML = tags;
 
   document.getElementById('mat-result').innerHTML = `
+    <div class="res-linha"><span>Produto</span><b>${bloco.nome || 'Material didático'}</b></div>
     <div class="res-linha"><span>Unidade / Bloco</span><b>${u} · ${bloco.bloco}</b></div>
     <div class="res-linha"><span>Prazo</span><b>${prazo.label}</b></div>
     <div class="res-linha"><span>Material (valor de tabela)</span><b>${fmt(matBase)}</b></div>
